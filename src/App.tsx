@@ -61,9 +61,9 @@ export default function App() {
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#2d5f3f] via-[#3a7a4f] to-[#2d5f3f]">
-      {/* ✅ MODAL DE VERIFICACIÓN */}
+  // ✅ SI HAY VERIFICACIÓN, SOLO MUESTRA EL MODAL (PANTALLA COMPLETA)
+  if (verificationStatus.status) {
+    return (
       <VerificationModal
         status={verificationStatus.status}
         email={verificationStatus.email}
@@ -71,7 +71,12 @@ export default function App() {
         reason={verificationStatus.reason}
         onClose={handleCloseVerification}
       />
+    );
+  }
 
+  // ✅ SI NO HAY VERIFICACIÓN, MUESTRA LA LANDING NORMAL
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#2d5f3f] via-[#3a7a4f] to-[#2d5f3f]">
       {/* Navigation Header */}
       <nav className="bg-[#2d5f3f]/50 backdrop-blur border-b border-white/10 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3">
@@ -102,7 +107,7 @@ export default function App() {
                 variant="ghost" 
                 className="text-white hover:bg-white/10 gap-1 md:gap-2 text-sm md:text-base px-3 md:px-4"
                 onClick={() => setCurrentView("support")}
-                data-support-button  // ✅ AGREGAR ESTO
+                data-support-button
               >
                 <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
                 Soporte

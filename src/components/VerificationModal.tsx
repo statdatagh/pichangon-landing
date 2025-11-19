@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle, Download, Mail } from "lucide-react";
 
 interface VerificationModalProps {
   status: "success" | "error" | null;
@@ -33,113 +33,172 @@ export function VerificationModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
-      <Card className="relative max-w-md w-full p-8 bg-white dark:bg-gray-900 animate-in zoom-in-95 duration-300">
-        {status === "success" ? (
-          <>
-            {/* Éxito */}
-            <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center mb-6 animate-in zoom-in duration-500">
-                <CheckCircle className="w-12 h-12 text-green-600 dark:text-green-500" />
-              </div>
+    <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#2d5f3f] via-[#3a7a4f] to-[#2d5f3f] animate-in fade-in">
+      {/* Patrón de fondo igual a la landing */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE0YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02ek0yNCAxNGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40"></div>
 
-              <h2 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
-                ¡Email verificado{name ? `, ${decodeURIComponent(name)}` : ""}!
-              </h2>
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+        {/* Logo Header - igual a la landing */}
+        <div className="absolute top-6 left-6 flex items-center gap-2">
+          <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+            <img 
+              src="https://res.cloudinary.com/davyafbvj/image/upload/v1754813192/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvZl9wbmc_vho8ni.png"
+              alt="PICHANGON Logo"
+              className="w-full h-full object-contain drop-shadow-lg"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
+          <span className="text-white text-xl md:text-2xl font-bold">PICHANGON</span>
+        </div>
 
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Tu cuenta ha sido verificada exitosamente.
-              </p>
+        {/* Card del modal */}
+        <Card className="relative max-w-lg w-full p-8 md:p-12 bg-white dark:bg-gray-900 animate-in zoom-in-95 duration-300 shadow-2xl">
+          {status === "success" ? (
+            <>
+              {/* ✅ ÉXITO */}
+              <div className="flex flex-col items-center text-center">
+                {/* Ícono con animación */}
+                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-[#2d5f3f] to-[#3a7a4f] flex items-center justify-center mb-6 animate-in zoom-in duration-500 shadow-lg">
+                  <CheckCircle className="w-14 h-14 md:w-16 md:h-16 text-white" />
+                </div>
 
-              <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6 w-full text-left">
-                <p className="text-sm font-semibold text-green-900 dark:text-green-400 mb-2">
-                  🎉 Ya puedes usar PICHANGON:
+                {/* Título */}
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                  ¡Email verificado{name ? `, ${decodeURIComponent(name)}` : ""}!
+                </h2>
+
+                {/* Descripción */}
+                <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                  Tu cuenta ha sido verificada exitosamente.
                 </p>
-                <ul className="text-sm text-green-800 dark:text-green-500 space-y-1">
-                  <li>📱 Abre la app en tu teléfono para iniciar sesión</li>
-                  <li>💻 O descárgala si aún no la tienes</li>
-                </ul>
+
+                {/* Info box - con estilos de la landing */}
+                <div className="bg-gradient-to-br from-[#2d5f3f]/10 to-[#3a7a4f]/10 border-2 border-[#2d5f3f]/30 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
+                  <p className="text-base font-bold text-[#2d5f3f] dark:text-[#3a7a4f] mb-3 flex items-center gap-2">
+                    🎉 Ya puedes usar PICHANGON
+                  </p>
+                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#2d5f3f] font-bold">📱</span>
+                      <span>Abre la app en tu teléfono para iniciar sesión</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#2d5f3f] font-bold">💻</span>
+                      <span>O descárgala si aún no la tienes</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Botones - con estilos de la landing */}
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                  <Button
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      handleClose();
+                    }}
+                    size="lg"
+                    className="flex-1 bg-gradient-to-r from-[#2d5f3f] to-[#3a7a4f] hover:opacity-90 text-white gap-2 shadow-lg"
+                  >
+                    <Download className="w-5 h-5" />
+                    Descargar App
+                  </Button>
+                  <Button
+                    onClick={handleClose}
+                    size="lg"
+                    variant="outline"
+                    className="flex-1 border-2 border-[#2d5f3f]/30 text-[#2d5f3f] hover:bg-[#2d5f3f]/5"
+                  >
+                    Cerrar
+                  </Button>
+                </div>
               </div>
+            </>
+          ) : (
+            <>
+              {/* ❌ ERROR */}
+              <div className="flex flex-col items-center text-center">
+                {/* Ícono con animación */}
+                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 animate-in zoom-in duration-500 shadow-lg">
+                  <XCircle className="w-14 h-14 md:w-16 md:h-16 text-white" />
+                </div>
 
-              <div className="flex gap-3 w-full">
-                <Button
-                  onClick={() => {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                    handleClose();
-                  }}
-                  className="flex-1 bg-gradient-to-r from-[#2d5f3f] to-[#3a7a4f] hover:opacity-90"
-                >
-                  📥 Descargar App
-                </Button>
-                <Button
-                  onClick={handleClose}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  Cerrar
-                </Button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Error */}
-            <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center mb-6 animate-in zoom-in duration-500">
-                <XCircle className="w-12 h-12 text-red-600 dark:text-red-500" />
-              </div>
+                {/* Título */}
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                  Error de verificación
+                </h2>
 
-              <h2 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
-                Error de verificación
-              </h2>
-
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                {reason === "invalid-token"
-                  ? "El enlace de verificación es inválido o ya expiró. Los enlaces expiran después de 24 horas."
-                  : reason === "no-token"
-                  ? "El enlace de verificación está incompleto. Por favor, copia el enlace completo del email."
-                  : reason === "server-error"
-                  ? "Error del servidor. Por favor, intenta nuevamente en unos minutos."
-                  : "Hubo un problema verificando tu email."}
-              </p>
-
-              <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 w-full text-left">
-                <p className="text-sm font-semibold text-red-900 dark:text-red-400 mb-2">
-                  Posibles causas:
+                {/* Descripción */}
+                <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                  {reason === "invalid-token"
+                    ? "El enlace de verificación es inválido o ya expiró. Los enlaces expiran después de 24 horas."
+                    : reason === "no-token"
+                    ? "El enlace de verificación está incompleto. Por favor, copia el enlace completo del email."
+                    : reason === "server-error"
+                    ? "Error del servidor. Por favor, intenta nuevamente en unos minutos."
+                    : "Hubo un problema verificando tu email."}
                 </p>
-                <ul className="text-sm text-red-800 dark:text-red-500 space-y-1">
-                  <li>• El enlace ya fue utilizado</li>
-                  <li>• El enlace ha expirado (válido por 24 horas)</li>
-                  <li>• El enlace está dañado o incompleto</li>
-                </ul>
-              </div>
 
-              <div className="flex gap-3 w-full">
-                <Button
-                  onClick={() => {
-                    // Scroll a la sección de soporte
-                    const supportButton = document.querySelector('[data-support-button]');
-                    if (supportButton) {
-                      (supportButton as HTMLElement).click();
-                    }
-                    handleClose();
-                  }}
-                  className="flex-1 bg-gradient-to-r from-[#2d5f3f] to-[#3a7a4f] hover:opacity-90"
-                >
-                  📧 Contactar Soporte
-                </Button>
-                <Button
-                  onClick={handleClose}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  Cerrar
-                </Button>
+                {/* Info box de error */}
+                <div className="bg-red-50 dark:bg-red-900/10 border-2 border-red-200 dark:border-red-800 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
+                  <p className="text-base font-bold text-red-900 dark:text-red-400 mb-3">
+                    Posibles causas:
+                  </p>
+                  <ul className="text-sm text-red-800 dark:text-red-500 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">•</span>
+                      <span>El enlace ya fue utilizado</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">•</span>
+                      <span>El enlace ha expirado (válido por 24 horas)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">•</span>
+                      <span>El enlace está dañado o incompleto</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Botones */}
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                  <Button
+                    onClick={() => {
+                      // Scroll a la sección de soporte
+                      const supportButton = document.querySelector('[data-support-button]');
+                      if (supportButton) {
+                        (supportButton as HTMLElement).click();
+                      }
+                      handleClose();
+                    }}
+                    size="lg"
+                    className="flex-1 bg-gradient-to-r from-[#2d5f3f] to-[#3a7a4f] hover:opacity-90 text-white gap-2 shadow-lg"
+                  >
+                    <Mail className="w-5 h-5" />
+                    Contactar Soporte
+                  </Button>
+                  <Button
+                    onClick={handleClose}
+                    size="lg"
+                    variant="outline"
+                    className="flex-1 border-2 border-[#2d5f3f]/30 text-[#2d5f3f] hover:bg-[#2d5f3f]/5"
+                  >
+                    Cerrar
+                  </Button>
+                </div>
               </div>
-            </div>
-          </>
-        )}
-      </Card>
+            </>
+          )}
+        </Card>
+
+        {/* Footer - igual a la landing */}
+        <div className="absolute bottom-6 left-0 right-0 text-center">
+          <p className="text-white/60 text-sm">
+            © 2025 PICHANGON. La plataforma definitiva para el fútbol amateur en Perú.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
