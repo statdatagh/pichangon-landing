@@ -16,13 +16,62 @@ import {
   HelpCircle
 } from "lucide-react";
 import { SupportSection } from "./components/SupportSection";
-import { useState } from "react";
+import { VerificationModal } from "./components/VerificationModal";
+import { useState, useEffect } from "react";
 
 export default function App() {
   const [currentView, setCurrentView] = useState<"home" | "support">("home");
+  
+  // ✅ ESTADO PARA VERIFICACIÓN
+  const [verificationStatus, setVerificationStatus] = useState<{
+    status: "success" | "error" | null;
+    email?: string;
+    name?: string;
+    reason?: string;
+  }>({
+    status: null,
+  });
+
+  // ✅ DETECTAR PARÁMETROS DE VERIFICACIÓN EN LA URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const verification = params.get("verification");
+    const email = params.get("email");
+    const name = params.get("name");
+    const reason = params.get("reason");
+
+    if (verification === "success" || verification === "error") {
+      setVerificationStatus({
+        status: verification as "success" | "error",
+        email: email || undefined,
+        name: name || undefined,
+        reason: reason || undefined,
+      });
+
+      // Limpiar URL después de 3 segundos
+      setTimeout(() => {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }, 3000);
+    }
+  }, []);
+
+  // ✅ FUNCIÓN PARA CERRAR EL MODAL
+  const handleCloseVerification = () => {
+    setVerificationStatus({ status: null });
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#2d5f3f] via-[#3a7a4f] to-[#2d5f3f]">
+      {/* ✅ MODAL DE VERIFICACIÓN */}
+      <VerificationModal
+        status={verificationStatus.status}
+        email={verificationStatus.email}
+        name={verificationStatus.name}
+        reason={verificationStatus.reason}
+        onClose={handleCloseVerification}
+      />
+
       {/* Navigation Header */}
       <nav className="bg-[#2d5f3f]/50 backdrop-blur border-b border-white/10 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3">
@@ -53,6 +102,7 @@ export default function App() {
                 variant="ghost" 
                 className="text-white hover:bg-white/10 gap-1 md:gap-2 text-sm md:text-base px-3 md:px-4"
                 onClick={() => setCurrentView("support")}
+                data-support-button  // ✅ AGREGAR ESTO
               >
                 <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
                 Soporte
@@ -105,18 +155,6 @@ export default function App() {
                 Descargar para Android
               </Button>
             </div>
-            
-            {/* Stats temporalmente ocultos - activar cuando tengamos datos reales */}
-            {/* <div className="flex gap-4 md:gap-8 justify-center text-white/80 text-xs md:text-sm mt-6 md:mt-8">
-              <div className="flex items-center gap-1 md:gap-2">
-                <Star className="w-3 h-3 md:w-4 md:h-4 fill-yellow-400 text-yellow-400" />
-                <span>4.8 en App Store</span>
-              </div>
-              <div className="flex items-center gap-1 md:gap-2">
-                <Users className="w-3 h-3 md:w-4 md:h-4" />
-                <span>+10,000 usuarios</span>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
