@@ -33,14 +33,14 @@ export function VerificationModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#2d5f3f] via-[#3a7a4f] to-[#2d5f3f] animate-in fade-in">
+    <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#2d5f3f] via-[#3a7a4f] to-[#2d5f3f] animate-in fade-in flex flex-col">
       {/* Patrón de fondo igual a la landing */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE0YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02ek0yNCAxNGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40"></div>
 
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-        {/* Logo Header - igual a la landing */}
-        <div className="absolute top-6 left-6 flex items-center gap-2">
-          <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+      {/* Logo Header - igual a la landing */}
+      <div className="relative z-20 p-4 md:p-6">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
             <img 
               src="https://res.cloudinary.com/davyafbvj/image/upload/v1754813192/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvZl9wbmc_vho8ni.png"
               alt="PICHANGON Logo"
@@ -50,9 +50,12 @@ export function VerificationModal({
               }}
             />
           </div>
-          <span className="text-white text-xl md:text-2xl font-bold">PICHANGON</span>
+          <span className="text-white text-lg md:text-xl font-bold">PICHANGON</span>
         </div>
+      </div>
 
+      {/* Contenido central */}
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4">
         {/* Card del modal */}
         <Card className="relative max-w-lg w-full p-8 md:p-12 bg-white/10 backdrop-blur-xl border-2 border-white/30 animate-in zoom-in-95 duration-300 shadow-2xl">
           {status === "success" ? (
@@ -60,35 +63,50 @@ export function VerificationModal({
               {/* ✅ ÉXITO */}
               <div className="flex flex-col items-center text-center">
                 {/* Ícono con animación */}
-                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-[#2d5f3f] to-[#3a7a4f] flex items-center justify-center mb-6 animate-in zoom-in duration-500 shadow-lg">
-                  <CheckCircle className="w-14 h-14 md:w-16 md:h-16 text-white" />
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 animate-in zoom-in duration-500 shadow-lg border-2 border-white/30">
+                  <CheckCircle className="w-12 h-12 md:w-14 md:h-14 text-white" />
                 </div>
 
                 {/* Título */}
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">
                   ¡Email verificado{name ? `, ${decodeURIComponent(name)}` : ""}!
                 </h2>
 
                 {/* Descripción */}
-                <p className="text-white/90 text-lg mb-6">
+                <p className="text-white/90 text-base md:text-lg mb-6">
                   Tu cuenta ha sido verificada exitosamente.
                 </p>
 
-                {/* Info box - con estilos de la landing */}
-                <div className="bg-white/20 backdrop-blur-sm border-2 border-white/40 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
-                  <p className="text-base font-bold text-white mb-3 flex items-center gap-2">
+                {/* Info box */}
+                <div className="bg-white/20 backdrop-blur-sm border-2 border-white/40 rounded-xl p-5 mb-6 w-full text-left shadow-sm">
+                  <p className="text-sm md:text-base font-bold text-white mb-3 flex items-center gap-2">
                     🎉 Ya puedes usar PICHANGON
                   </p>
                   <ul className="text-sm text-white/90 space-y-2">
                     <li className="flex items-start gap-2">
-                      <span className="text-white font-bold">📱</span>
+                      <span className="text-white font-bold text-base">📱</span>
                       <span>Abre la app en tu teléfono para iniciar sesión</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-white font-bold text-base">💻</span>
+                      <span>O descárgala si aún no la tienes</span>
                     </li>
                   </ul>
                 </div>
 
-                {/* Botones - con estilos de la landing */}
+                {/* Botones */}
                 <div className="flex flex-col sm:flex-row gap-3 w-full">
+                  <Button
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      handleClose();
+                    }}
+                    size="lg"
+                    className="flex-1 bg-white text-[#2d5f3f] hover:bg-white/90 font-semibold gap-2 shadow-lg"
+                  >
+                    <Download className="w-5 h-5" />
+                    Descargar App
+                  </Button>
                   <Button
                     onClick={handleClose}
                     size="lg"
@@ -105,17 +123,17 @@ export function VerificationModal({
               {/* ❌ ERROR */}
               <div className="flex flex-col items-center text-center">
                 {/* Ícono con animación */}
-                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 animate-in zoom-in duration-500 shadow-lg">
-                  <XCircle className="w-14 h-14 md:w-16 md:h-16 text-white" />
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-red-500/30 backdrop-blur-sm flex items-center justify-center mb-6 animate-in zoom-in duration-500 shadow-lg border-2 border-red-400/50">
+                  <XCircle className="w-12 h-12 md:w-14 md:h-14 text-white" />
                 </div>
 
                 {/* Título */}
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">
                   Error de verificación
                 </h2>
 
                 {/* Descripción */}
-                <p className="text-white/90 text-lg mb-6">
+                <p className="text-white/90 text-base md:text-lg mb-6">
                   {reason === "invalid-token"
                     ? "El enlace de verificación es inválido o ya expiró. Los enlaces expiran después de 24 horas."
                     : reason === "no-token"
@@ -126,8 +144,8 @@ export function VerificationModal({
                 </p>
 
                 {/* Info box de error */}
-                <div className="bg-red-500/20 backdrop-blur-sm border-2 border-red-400/40 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
-                  <p className="text-base font-bold text-white mb-3">
+                <div className="bg-red-500/20 backdrop-blur-sm border-2 border-red-400/40 rounded-xl p-5 mb-6 w-full text-left shadow-sm">
+                  <p className="text-sm md:text-base font-bold text-white mb-3">
                     Posibles causas:
                   </p>
                   <ul className="text-sm text-white/90 space-y-2">
@@ -150,7 +168,6 @@ export function VerificationModal({
                 <div className="flex flex-col sm:flex-row gap-3 w-full">
                   <Button
                     onClick={() => {
-                      // Scroll a la sección de soporte
                       const supportButton = document.querySelector('[data-support-button]');
                       if (supportButton) {
                         (supportButton as HTMLElement).click();
@@ -176,10 +193,12 @@ export function VerificationModal({
             </>
           )}
         </Card>
+      </div>
 
-        {/* Footer - igual a la landing */}
-        <div className="absolute bottom-6 left-0 right-0 text-center">
-          <p className="text-white/60 text-sm">
+      {/* Footer - igual a la landing */}
+      <div className="relative z-20 py-4 md:py-6 border-t border-white/10">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-white/60 text-xs md:text-sm">
             © 2025 PICHANGON. La plataforma definitiva para el fútbol amateur en Perú.
           </p>
         </div>
