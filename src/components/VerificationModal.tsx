@@ -54,7 +54,7 @@ export function VerificationModal({
         </div>
 
         {/* Card del modal */}
-        <Card className="relative max-w-lg w-full p-8 md:p-12 bg-white dark:bg-gray-900 animate-in zoom-in-95 duration-300 shadow-2xl">
+        <Card className="relative max-w-lg w-full p-8 md:p-12 bg-white/10 backdrop-blur-xl border-2 border-white/30 animate-in zoom-in-95 duration-300 shadow-2xl">
           {status === "success" ? (
             <>
               {/* ✅ ÉXITO */}
@@ -65,28 +65,24 @@ export function VerificationModal({
                 </div>
 
                 {/* Título */}
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                   ¡Email verificado{name ? `, ${decodeURIComponent(name)}` : ""}!
                 </h2>
 
                 {/* Descripción */}
-                <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                <p className="text-white/90 text-lg mb-6">
                   Tu cuenta ha sido verificada exitosamente.
                 </p>
 
                 {/* Info box - con estilos de la landing */}
-                <div className="bg-gradient-to-br from-[#2d5f3f]/10 to-[#3a7a4f]/10 border-2 border-[#2d5f3f]/30 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
-                  <p className="text-base font-bold text-[#2d5f3f] dark:text-[#3a7a4f] mb-3 flex items-center gap-2">
+                <div className="bg-white/20 backdrop-blur-sm border-2 border-white/40 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
+                  <p className="text-base font-bold text-white mb-3 flex items-center gap-2">
                     🎉 Ya puedes usar PICHANGON
                   </p>
-                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                  <ul className="text-sm text-white/90 space-y-2">
                     <li className="flex items-start gap-2">
-                      <span className="text-[#2d5f3f] font-bold">📱</span>
+                      <span className="text-white font-bold">📱</span>
                       <span>Abre la app en tu teléfono para iniciar sesión</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#2d5f3f] font-bold">💻</span>
-                      <span>O descárgala si aún no la tienes</span>
                     </li>
                   </ul>
                 </div>
@@ -94,21 +90,10 @@ export function VerificationModal({
                 {/* Botones - con estilos de la landing */}
                 <div className="flex flex-col sm:flex-row gap-3 w-full">
                   <Button
-                    onClick={() => {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                      handleClose();
-                    }}
-                    size="lg"
-                    className="flex-1 bg-gradient-to-r from-[#2d5f3f] to-[#3a7a4f] hover:opacity-90 text-white gap-2 shadow-lg"
-                  >
-                    <Download className="w-5 h-5" />
-                    Descargar App
-                  </Button>
-                  <Button
                     onClick={handleClose}
                     size="lg"
                     variant="outline"
-                    className="flex-1 border-2 border-[#2d5f3f]/30 text-[#2d5f3f] hover:bg-[#2d5f3f]/5"
+                    className="flex-1 border-2 border-white/50 text-white hover:bg-white/10"
                   >
                     Cerrar
                   </Button>
@@ -125,12 +110,12 @@ export function VerificationModal({
                 </div>
 
                 {/* Título */}
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                   Error de verificación
                 </h2>
 
                 {/* Descripción */}
-                <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                <p className="text-white/90 text-lg mb-6">
                   {reason === "invalid-token"
                     ? "El enlace de verificación es inválido o ya expiró. Los enlaces expiran después de 24 horas."
                     : reason === "no-token"
@@ -141,11 +126,11 @@ export function VerificationModal({
                 </p>
 
                 {/* Info box de error */}
-                <div className="bg-red-50 dark:bg-red-900/10 border-2 border-red-200 dark:border-red-800 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
-                  <p className="text-base font-bold text-red-900 dark:text-red-400 mb-3">
+                <div className="bg-red-500/20 backdrop-blur-sm border-2 border-red-400/40 rounded-xl p-6 mb-8 w-full text-left shadow-sm">
+                  <p className="text-base font-bold text-white mb-3">
                     Posibles causas:
                   </p>
-                  <ul className="text-sm text-red-800 dark:text-red-500 space-y-2">
+                  <ul className="text-sm text-white/90 space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="font-bold">•</span>
                       <span>El enlace ya fue utilizado</span>
@@ -173,7 +158,7 @@ export function VerificationModal({
                       handleClose();
                     }}
                     size="lg"
-                    className="flex-1 bg-gradient-to-r from-[#2d5f3f] to-[#3a7a4f] hover:opacity-90 text-white gap-2 shadow-lg"
+                    className="flex-1 bg-white text-[#2d5f3f] hover:bg-white/90 font-semibold gap-2 shadow-lg"
                   >
                     <Mail className="w-5 h-5" />
                     Contactar Soporte
@@ -182,7 +167,7 @@ export function VerificationModal({
                     onClick={handleClose}
                     size="lg"
                     variant="outline"
-                    className="flex-1 border-2 border-[#2d5f3f]/30 text-[#2d5f3f] hover:bg-[#2d5f3f]/5"
+                    className="flex-1 border-2 border-white/50 text-white hover:bg-white/10"
                   >
                     Cerrar
                   </Button>
