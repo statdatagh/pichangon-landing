@@ -33,14 +33,20 @@ export default function App() {
   });
 
   // ✅ DETECTAR PARÁMETROS DE VERIFICACIÓN EN LA URL
+
   useEffect(() => {
+    // Obtener parámetros de la URL
     const params = new URLSearchParams(window.location.search);
     const verification = params.get("verification");
     const email = params.get("email");
     const name = params.get("name");
     const reason = params.get("reason");
 
+    console.log('🔍 DEBUG - Parámetros detectados:', { verification, email, name, reason });
+
     if (verification === "success" || verification === "error") {
+      console.log('✅ Mostrando modal de verificación');
+      
       setVerificationStatus({
         status: verification as "success" | "error",
         email: email || undefined,
@@ -48,12 +54,17 @@ export default function App() {
         reason: reason || undefined,
       });
 
-      // Limpiar URL después de 3 segundos
+      // Limpiar URL después de 2 segundos (sin recargar)
       setTimeout(() => {
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }, 3000);
+        const url = new URL(window.location.href);
+        url.searchParams.delete('verification');
+        url.searchParams.delete('email');
+        url.searchParams.delete('name');
+        url.searchParams.delete('reason');
+        window.history.replaceState({}, document.title, url.pathname);
+      }, 2000);
     }
-  }, []);
+  }, []); // ✅ Solo ejecutar una vez al montar el componente
 
   // ✅ FUNCIÓN PARA CERRAR EL MODAL
   const handleCloseVerification = () => {
