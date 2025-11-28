@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+
+/**
+ * 🎨 PICHANGON CUSTOM THEME
+ * Variables CSS personalizadas basadas en el theme de Flutter
+ */
+
+@layer base {
+  :root {
+    /* ✅ Shadcn UI Variables (Light Mode por defecto) */
+    --background: 251 251 251; /* #FBFBFB */
+    --foreground: 0 48 0; /* #003000 */
+    --card: 255 255 255; /* #FFFFFF */
+    --card-foreground: 0 48 0;
+    --popover: 255 255 255;
+    --popover-foreground: 0 48 0;
+    --primary: 16 185 129; /* #10B981 - accentGreen */
+    --primary-foreground: 255 255 255;
+    --secondary: 240 253 244;
+    --secondary-foreground: 0 48 0;
+    --muted: 240 253 244;
+    --muted-foreground: 102 102 102;
+    --accent: 16 185 129;
+    --accent-foreground: 255 255 255;
+    --destructive: 204 0 0; /* #CC0000 */
+    --destructive-foreground: 255 255 255;
+    --border: 229 231 235;
+    --input: 229 231 235;
+    --ring: 16 185 129;
+    --radius: 0.5rem;
+
+    /* ✅ Pichangon Custom Variables */
+    --pichangon-accent: #10B981;
+    --pichangon-dark-bg: #1A5A3E;
+    --pichangon-dark-card: #2B6B4F;
+    --pichangon-light-bg: #FBFBFB;
+    --pichangon-light-card: #FFFFFF;
+  }
+
+  .dark {
+    /* ✅ Shadcn UI Variables (Dark Mode) */
+    --background: 26 90 62; /* #1A5A3E */
+    --foreground: 255 255 255;
+    --card: 43 107 79; /* #2B6B4F */
+    --card-foreground: 255 255 255;
+    --popover: 43 107 79;
+    --popover-foreground: 255 255 255;
+    --primary: 16 185 129; /* #10B981 */
+    --primary-foreground: 255 255 255;
+    --secondary: 45 95 71;
+    --secondary-foreground: 255 255 255;
+    --muted: 45 95 71;
+    --muted-foreground: 170 170 170;
+    --accent: 16 185 129;
+    --accent-foreground: 255 255 255;
+    --destructive: 204 0 0;
+    --destructive-foreground: 255 255 255;
+    --border: 45 95 71;
+    --input: 45 95 71;
+    --ring: 16 185 129;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/**
+ * 🎨 UTILITY CLASSES PERSONALIZADAS
+ */
+@layer utilities {
+  /* Gradientes de fondo */
+  .bg-gradient-dark {
+    background: linear-gradient(180deg, #1F5438 0%, #163F2C 50%, #0A1F15 100%);
+  }
+
+  .bg-gradient-light {
+    background: linear-gradient(180deg, #FAFBFA 0%, #F5F7F6 100%);
+  }
+
+  /* Gradientes para cards */
+  .bg-gradient-card-dark {
+    background: linear-gradient(135deg, #2D5F47 0%, #1F4A37 100%);
+  }
+
+  .bg-gradient-card-light {
+    background: linear-gradient(135deg, rgba(240, 253, 244, 0.5) 0%, rgba(240, 253, 244, 0.3) 100%);
+  }
+
+  /* Glass effect */
+  .glass-effect-dark {
+    @apply bg-pichangon-glass-20 backdrop-blur-md border border-pichangon-glass-border;
+  }
+
+  .glass-effect-light {
+    @apply bg-white/50 backdrop-blur-md border border-pichangon-accent/[0.12];
+  }
+
+  /* Card styles */
+  .card-dark {
+    @apply bg-gradient-card-dark border border-white/[0.08] shadow-lg;
+  }
+
+  .card-light {
+    @apply bg-gradient-card-light border border-pichangon-accent/[0.12] shadow-md;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .hover-glass-dark {
+    @apply hover:bg-pichangon-glass-30 transition-all duration-200;
+  }
+
+  .hover-glass-light {
+    @apply hover:bg-white/70 transition-all duration-200;
+  }
+}
+
+/**
+ * 🎨 SCROLLBAR PERSONALIZADO
+ */
+@layer utilities {
+  /* Scrollbar para modo oscuro */
+  .dark .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-pichangon-dark-card/50;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-pichangon-accent/50 rounded-full;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-pichangon-accent/70;
+  }
+
+  /* Scrollbar para modo claro */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-pichangon-accent/30 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-pichangon-accent/50;
+  }
+}
+
+/**
+ * 🎨 ANIMACIONES PERSONALIZADAS
+ */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
