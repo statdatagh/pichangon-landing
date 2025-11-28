@@ -195,7 +195,7 @@ function HomePage() {
                   <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[300px] h-[600px] rounded-[50px] bg-black border-[12px] border-gray-900 overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300 z-20">
                     <div className="w-full h-full bg-gradient-to-br from-pichangon-dark-bg to-pichangon-dark-card flex items-center justify-center">
                       <img 
-                        src="https://res.cloudinary.com/davyafbvj/image/upload/v1754813192/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvZl9wbmc_vho8ni.png"
+                        src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_qusmuo.png"
                         alt="PICHANGON App"
                         className="w-full h-full object-cover"
                       />
@@ -208,7 +208,7 @@ function HomePage() {
                   <div className="absolute left-0 top-20 w-[240px] h-[480px] rounded-[40px] bg-black border-[10px] border-gray-900 overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 z-10 opacity-80">
                     <div className="w-full h-full bg-gradient-to-br from-pichangon-dark-bg to-pichangon-dark-card flex items-center justify-center">
                       <img 
-                        src="https://res.cloudinary.com/davyafbvj/image/upload/v1754813192/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvZl9wbmc_vho8ni.png"
+                        src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_1_wiqoqh.png"
                         alt="PICHANGON Features"
                         className="w-full h-full object-cover"
                       />
@@ -219,7 +219,7 @@ function HomePage() {
                   <div className="absolute right-0 top-32 w-[220px] h-[440px] rounded-[35px] bg-black border-[10px] border-gray-900 overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300 z-10 opacity-70">
                     <div className="w-full h-full bg-gradient-to-br from-pichangon-dark-bg to-pichangon-dark-card flex items-center justify-center">
                       <img 
-                        src="https://res.cloudinary.com/davyafbvj/image/upload/v1754813192/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvZl9wbmc_vho8ni.png"
+                        src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_2_j6lgto.png"
                         alt="PICHANGON Community"
                         className="w-full h-full object-cover"
                       />
@@ -261,8 +261,16 @@ function HomePage() {
               
               {/* Mini mockup */}
               <div className="mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
-                <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center">
-                  <div className="text-white/50 text-sm">Pantalla de búsqueda</div>
+                <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_5_e9ajtx.png "
+                    alt="Pantalla de búsqueda"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<div class="text-white/50 text-sm">Pantalla de búsqueda</div>';
+                    }}
+                  />
                 </div>
               </div>
             </Card>
@@ -279,8 +287,16 @@ function HomePage() {
               
               {/* Mini mockup */}
               <div className="mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
-                <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center">
-                  <div className="text-white/50 text-sm">Detalles del partido</div>
+                <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_2_j6lgto.png"
+                    alt="Detalles del partido"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<div class="text-white/50 text-sm">Detalles del partido</div>';
+                    }}
+                  />
                 </div>
               </div>
             </Card>
@@ -297,8 +313,16 @@ function HomePage() {
               
               {/* Mini mockup */}
               <div className="mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
-                <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center">
-                  <div className="text-white/50 text-sm">Día del partido</div>
+                <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_4_vrxcrm.png"
+                    alt="Día del partido"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<div class="text-white/50 text-sm">Día del partido</div>';
+                    }}
+                  />
                 </div>
               </div>
             </Card>
