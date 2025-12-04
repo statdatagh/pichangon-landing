@@ -15,6 +15,7 @@ import { SupportSection } from "./components/SupportSection";
 import { VerificationModal } from "./components/VerificationModal";
 import { FAQ } from "./components/FAQ";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
+import { TermsAndConditions } from "./components/TermsAndConditions";
 import { useState, useEffect } from "react";
 import { useTheme } from "./components/theme-provider";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
@@ -80,6 +81,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/support" element={<SupportSection />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
       </Routes>
     </div>
   );
@@ -355,12 +357,21 @@ function HomePage() {
       {/* Footer */}
       <footer className="py-8">
         <div className="container mx-auto px-4 text-center">
-          <button
-            onClick={() => navigate("/privacy")}
-            className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm mb-2 underline"
-          >
-            Política de Privacidad
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-2">
+            <button
+              onClick={() => navigate("/privacy")}
+              className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
+            >
+              Política de Privacidad
+            </button>
+            <span className="text-white/40 hidden sm:inline">•</span>
+            <button
+              onClick={() => navigate("/terms")}
+              className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
+            >
+              Términos y Condiciones
+            </button>
+          </div>
           <p className="text-white/60 text-sm">
             © 2025 PICHANGON. La plataforma definitiva para el fútbol amateur en Perú.
           </p>
