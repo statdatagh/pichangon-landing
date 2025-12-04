@@ -16,6 +16,9 @@ import { VerificationModal } from "./components/VerificationModal";
 import { FAQ } from "./components/FAQ";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TermsAndConditions } from "./components/TermsAndConditions";
+import { CookieBanner } from "./components/CookieBanner";
+import { CookiePolicy } from "./components/CookiePolicy";
+import { initializeTracking } from "./utils/cookieConsent";
 import { useState, useEffect } from "react";
 import { useTheme } from "./components/theme-provider";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
@@ -53,6 +56,9 @@ export default function App() {
         window.history.replaceState({}, document.title, window.location.pathname);
       }, 3000);
     }
+
+    // ✅ INICIALIZAR TRACKING SI EL USUARIO YA ACEPTÓ COOKIES
+    initializeTracking();
   }, []);
 
   const handleCloseVerification = () => {
@@ -82,7 +88,11 @@ export default function App() {
         <Route path="/support" element={<SupportSection />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
       </Routes>
+
+      {/* ✅ BANNER DE COOKIES */}
+      <CookieBanner />
     </div>
   );
 }
@@ -370,6 +380,13 @@ function HomePage() {
               className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
             >
               Términos y Condiciones
+            </button>
+            <span className="text-white/40 hidden sm:inline">•</span>
+            <button
+              onClick={() => navigate("/cookies")}
+              className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
+            >
+              Política de Cookies
             </button>
           </div>
           <p className="text-white/60 text-sm">
