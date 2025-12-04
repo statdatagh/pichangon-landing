@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
 import { Card } from "./ui/card";
-import { Mail, CheckCircle } from "lucide-react";
+import { Mail, CheckCircle, AlertCircle } from "lucide-react";
 
 export function SupportSection() {
   const [formData, setFormData] = useState({
@@ -13,23 +13,42 @@ export function SupportSection() {
     subject: "",
     message: ""
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const mailtoLink = `mailto:contacto@pichangon.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Nombre: ${formData.name}\nEmail: ${formData.email}\n\nMensaje:\n${formData.message}`
-    )}`;
-    
-    window.location.href = mailtoLink;
-    
-    setIsSubmitted(true);
-    
-    setTimeout(() => {
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setIsSubmitted(false);
-    }, 2000);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // ✅ URL DIRECTA DE TU BACKEND EN RENDER
+      const response = await fetch('https://pichangon.onrender.com/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 5000);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error enviando mensaje:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -66,6 +85,20 @@ export function SupportSection() {
           <Card className="bg-white/10 backdrop-blur border-white/20 p-8">
             <h3 className="text-white text-2xl mb-6">Envíanos un Mensaje</h3>
             
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-300" />
+                <p className="text-green-100">¡Mensaje enviado exitosamente! Te responderemos pronto.</p>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-red-300" />
+                <p className="text-red-100">Error al enviar el mensaje. Por favor, intenta de nuevo.</p>
+              </div>
+            )}
+            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -76,6 +109,7 @@ export function SupportSection() {
                     value={formData.name}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                     className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                     placeholder="Tu nombre"
                   />
@@ -90,6 +124,7 @@ export function SupportSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                     className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                     placeholder="tu@email.com"
                   />
@@ -104,6 +139,7 @@ export function SupportSection() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
+                  disabled={isSubmitting}
                   className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                   placeholder="¿En qué podemos ayudarte?"
                 />
@@ -117,6 +153,7 @@ export function SupportSection() {
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  disabled={isSubmitting}
                   rows={6}
                   className="bg-white/20 border-white/30 text-white placeholder:text-white/50 resize-none"
                   placeholder="Cuéntanos más sobre tu consulta..."
@@ -127,9 +164,14 @@ export function SupportSection() {
                 type="submit"
                 size="lg"
                 className="w-full bg-white text-[#2d5f3f] hover:bg-gray-100"
-                disabled={isSubmitted}
+                disabled={isSubmitting}
               >
-                {isSubmitted ? (
+                {isSubmitting ? (
+                  <>
+                    <Mail className="w-5 h-5 mr-2 animate-pulse" />
+                    Enviando...
+                  </>
+                ) : submitStatus === 'success' ? (
                   <>
                     <CheckCircle className="w-5 h-5 mr-2" />
                     Mensaje Enviado
