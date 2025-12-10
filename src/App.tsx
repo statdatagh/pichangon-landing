@@ -1,3 +1,4 @@
+// App.tsx
 import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
 import { 
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import { SupportSection } from "./components/SupportSection";
 import { VerificationModal } from "./components/VerificationModal";
+import { ResetPasswordPage } from './components/ResetPasswordPage';
 import { FAQ } from "./components/FAQ";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TermsAndConditions } from "./components/TermsAndConditions";
@@ -89,6 +91,7 @@ export default function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
 
       {/* ✅ BANNER DE COOKIES */}
