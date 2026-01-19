@@ -165,7 +165,7 @@ function HomePage() {
             <div className="flex justify-center mb-6 md:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pichangon-accent/20 border border-pichangon-accent/30">
                 <span className="w-2 h-2 rounded-full bg-pichangon-accent animate-pulse"></span>
-                <span className="text-white text-sm font-medium">La app #1 para fútbol amateur en Perú</span>
+                <span className="text-white text-sm font-medium">La app para organizar fútbol amateur en Perú</span>
               </div>
             </div>
 
@@ -186,8 +186,8 @@ function HomePage() {
                 
                 {/* Descripción */}
                 <p className="text-white/80 text-lg md:text-xl mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                  Encuentra pichangas cerca de ti, únete a la comunidad futbolera más grande 
-                  de Perú y vive cada partido como si fuera la final.
+                  Encuentra pichangas cerca de ti, únete a una gran comunidad futbolera 
+                  en Perú y vive cada partido como si fuera la final.
                 </p>
                 
                 {/* CTAs */}
@@ -393,7 +393,8 @@ function HomePage() {
             </button>
           </div>
           <p className="text-white/60 text-sm">
-            © 2025 PICHANGON. La plataforma definitiva para el fútbol amateur en Perú.
+            © 2025 PICHANGON. Plataforma digital para fútbol amateur en Perú.  
+            Pichangón es una plataforma operada bajo la marca PICHANGÓN DEL BARRIO.
           </p>
         </div>
       </footer>

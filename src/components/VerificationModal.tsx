@@ -157,7 +157,8 @@ export function VerificationModal({
       <div className="relative z-20 py-4 md:py-6 border-t border-white/10 mt-auto">
         <div className="container mx-auto px-4 text-center">
           <p className="text-white/60 text-xs md:text-sm">
-            © 2025 PICHANGON. La plataforma definitiva para el fútbol amateur en Perú.
+            © 2025 PICHANGON. Plataforma digital para fútbol amateur en Perú.  
+            Pichangón es una plataforma operada bajo la marca PICHANGÓN DEL BARRIO.
           </p>
         </div>
       </div>
