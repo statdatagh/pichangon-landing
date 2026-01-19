@@ -175,7 +175,7 @@ function HomePage() {
               <div className="text-center lg:text-left">
                 {/* Título grande */}
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                  <span className="block text-white">Pichanguea.</span>
+                  <span className="block text-white">Pelotea.</span>
                   <span className="block bg-gradient-to-r from-pichangon-accent to-green-400 bg-clip-text text-transparent">
                     Donde quieras.
                   </span>
