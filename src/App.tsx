@@ -9,8 +9,6 @@ import {
   HelpCircle,
   Moon,
   Sun,
-  Apple,
-  Play
 } from "lucide-react";
 import { SupportSection } from "./components/SupportSection";
 import { VerificationModal } from "./components/VerificationModal";
@@ -204,35 +202,31 @@ function HomePage() {
                 </p>
                 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-black hover:bg-white/90 gap-2 font-semibold group"
-                    asChild
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                  <a 
+                    href="https://apps.apple.com/es/app/pichangon/id6755395709" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="transition-transform hover:scale-105"
                   >
-                    <a 
-                      href="https://apps.apple.com/es/app/pichangon/id6755395709" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Apple className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      App Store
-                    </a>
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-black hover:bg-white/90 gap-2 font-semibold group"
-                    asChild
+                    <img 
+                      src="https://res.cloudinary.com/davyafbvj/image/upload/v1770725318/apple-1_iaq2mx.png"
+                      alt="Descargar en App Store"
+                      className="h-14 w-auto"
+                    />
+                  </a>
+                  <a 
+                    href="https://play.google.com/store/apps/details?id=com.pichangon.app&pcampaignid=web_share" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="transition-transform hover:scale-105"
                   >
-                    <a 
-                      href="https://play.google.com/store/apps/details?id=com.pichangon.app&pcampaignid=web_share" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      Google Play
-                    </a>
-                  </Button>
+                    <img 
+                      src="https://res.cloudinary.com/davyafbvj/image/upload/v1770725372/disponible-en-google-play-badge_kjqimi.png"
+                      alt="Descargar en Google Play"
+                      className="h-14 w-auto"
+                    />
+                  </a>
                 </div>
               </div>
 
