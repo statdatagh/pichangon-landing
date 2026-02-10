@@ -24,6 +24,8 @@ import { initializeTracking } from "./utils/cookieConsent";
 import { useState, useEffect } from "react";
 import { useTheme } from "./components/theme-provider";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
+
 
 export default function App() {
   const { theme, setTheme } = useTheme();
@@ -92,6 +94,7 @@ export default function App() {
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/cookies" element={<CookiePolicy />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/dashboard" element={<FieldOwnerDashboard />} />
       </Routes>
 
       {/* ✅ BANNER DE COOKIES */}
@@ -136,6 +139,16 @@ function Navbar({ theme, setTheme }: { theme: string; setTheme: (theme: "dark" |
               <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
               Soporte
             </Button>
+            
+            {/* ✅ NUEVO: Botón Dashboard */}
+            <Button 
+              variant="ghost" 
+              className="text-pichangon-accent hover:bg-pichangon-accent/10 border border-pichangon-accent/30 text-sm md:text-base px-3 md:px-4 font-semibold"
+              onClick={() => navigate("/dashboard")}
+            >
+              Gestión Canchas
+            </Button>
+            
             <Button
               variant="ghost"
               size="icon"
@@ -192,13 +205,33 @@ function HomePage() {
                 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button size="lg" className="bg-white text-black hover:bg-white/90 gap-2 font-semibold group">
-                    <Apple className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                    App Store
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-black hover:bg-white/90 gap-2 font-semibold group"
+                    asChild
+                  >
+                    <a 
+                      href="https://apps.apple.com/es/app/pichangon/id6755395709" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <Apple className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      App Store
+                    </a>
                   </Button>
-                  <Button size="lg" className="bg-white text-black hover:bg-white/90 gap-2 font-semibold group">
-                    <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                    Google Play
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-black hover:bg-white/90 gap-2 font-semibold group"
+                    asChild
+                  >
+                    <a 
+                      href="https://play.google.com/store/apps/details?id=com.pichangon.app&pcampaignid=web_share" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                      Google Play
+                    </a>
                   </Button>
                 </div>
               </div>
