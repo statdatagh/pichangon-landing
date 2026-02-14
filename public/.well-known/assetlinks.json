@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.pichangon.app",
+    "sha256_cert_fingerprints": [
+      "DD:67:D4:22:B9:1F:B6:A8:EC:BF:B0:DC:F0:5B:E9:09:74:5D:E2:DE:CC:27:EC:B3:2F:64:17:F8:56:B9:50:2F"
+    ]
+  }
+}]

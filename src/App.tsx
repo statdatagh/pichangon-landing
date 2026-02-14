@@ -20,6 +20,7 @@ import { initializeTracking } from "./utils/cookieConsent";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
+import { PichangaLandingPage } from './pages/PichangaLandingPage';
 
 
 export default function App() {
@@ -88,6 +89,7 @@ export default function App() {
         <Route path="/cookies" element={<CookiePolicy />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/dashboard" element={<FieldOwnerDashboard />} />
+        <Route path="/pichanga/:id" element={<PichangaLandingPage />} />
       </Routes>
 
       {/* ✅ BANNER DE COOKIES */}
