@@ -102,6 +102,8 @@ export default function App() {
 }
 
 // Navbar Component
+// App.tsx - Solo la sección del Navbar modificada
+
 function Navbar({ theme, setTheme }: { theme: string; setTheme: (theme: "dark" | "light") => void }) {
   const navigate = useNavigate();
 
@@ -109,7 +111,8 @@ function Navbar({ theme, setTheme }: { theme: string; setTheme: (theme: "dark" |
     <nav className="sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2 cursor-pointer">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 cursor-pointer flex-shrink-0">
             <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
               <img 
                 src="https://res.cloudinary.com/davyafbvj/image/upload/v1754813192/ZV9iYWNrZ3JvdW5kX3JlbW92YWwvZl9wbmc_vho8ni.png"
@@ -121,37 +124,43 @@ function Navbar({ theme, setTheme }: { theme: string; setTheme: (theme: "dark" |
             <span className="text-white text-lg md:text-xl font-bold">PICHANGON</span>
           </Link>
           
-          <div className="flex gap-2 md:gap-4">
+          {/* Botones - Responsive */}
+          <div className="flex gap-1.5 md:gap-4 items-center">
+            {/* Inicio - Solo visible en desktop */}
             <Button 
               variant="ghost" 
-              className="text-white hover:bg-white/10 text-sm md:text-base px-3 md:px-4"
+              className="hidden sm:flex text-white hover:bg-white/10 text-sm md:text-base px-3 md:px-4"
               onClick={() => navigate("/")}
             >
               Inicio
             </Button>
+            
+            {/* Soporte */}
             <Button 
               variant="ghost" 
-              className="text-white hover:bg-white/10 gap-1 md:gap-2 text-sm md:text-base px-3 md:px-4"
+              className="text-white hover:bg-white/10 gap-1 md:gap-2 text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4"
               onClick={() => navigate("/support")}
             >
               <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
-              Soporte
+              <span className="hidden sm:inline">Soporte</span>
             </Button>
             
-            {/* ✅ NUEVO: Botón Dashboard */}
+            {/* Dashboard - Texto adaptativo */}
             <Button 
               variant="ghost" 
-              className="text-pichangon-accent hover:bg-pichangon-accent/10 border border-pichangon-accent/30 text-sm md:text-base px-3 md:px-4 font-semibold"
+              className="text-pichangon-accent hover:bg-pichangon-accent/10 border border-pichangon-accent/30 text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 font-semibold whitespace-nowrap"
               onClick={() => navigate("/dashboard")}
             >
-              Gestión Canchas
+              <span className="hidden sm:inline">Gestión Canchas</span>
+              <span className="sm:hidden">Canchas</span>
             </Button>
             
+            {/* Toggle Theme */}
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="text-white hover:bg-white/10"
+              className="text-white hover:bg-white/10 flex-shrink-0"
             >
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
