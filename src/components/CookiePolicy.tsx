@@ -352,15 +352,18 @@ export function CookiePolicy() {
           </div>
         </section>
 
-        {/* Footer */}
-        <div className="text-center pt-8 border-t border-white/10">
+        {/* Botón Volver al inicio - SEPARADO */}
+        <div className="text-center pt-8 pb-6">
           <Button
-            variant="outline"
             onClick={() => navigate("/")}
-            className="border-white/20 text-white hover:bg-white/10 mb-4"
+            className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white font-semibold px-8 py-3"
           >
-            ← Volver al inicio
+            Volver al inicio
           </Button>
+        </div>
+
+        {/* Footer - SEPARADO */}
+        <div className="text-center pt-6 border-t border-white/10">
           <p className="text-white/60 text-sm">
             © 2025 PICHANGON. Todos los derechos reservados.
           </p>

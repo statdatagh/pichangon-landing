@@ -7,8 +7,6 @@ import {
   Users,
   Download,
   HelpCircle,
-  Moon,
-  Sun,
 } from "lucide-react";
 import { SupportSection } from "./components/SupportSection";
 import { VerificationModal } from "./components/VerificationModal";
@@ -20,14 +18,11 @@ import { CookieBanner } from "./components/CookieBanner";
 import { CookiePolicy } from "./components/CookiePolicy";
 import { initializeTracking } from "./utils/cookieConsent";
 import { useState, useEffect } from "react";
-import { useTheme } from "./components/theme-provider";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
 
 
 export default function App() {
-  const { theme, setTheme } = useTheme();
-  
   // ✅ ESTADO PARA VERIFICACIÓN
   const [verificationStatus, setVerificationStatus] = useState<{
     status: "success" | "error" | null;
@@ -83,7 +78,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1A5A3E] via-[#0F2919] via-60% to-[#051108]">
       {/* Navigation */}
-      <Navbar theme={theme} setTheme={setTheme} />
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -102,9 +97,7 @@ export default function App() {
 }
 
 // Navbar Component
-// App.tsx - Solo la sección del Navbar modificada
-
-function Navbar({ theme, setTheme }: { theme: string; setTheme: (theme: "dark" | "light") => void }) {
+function Navbar() {
   const navigate = useNavigate();
 
   return (
@@ -154,16 +147,6 @@ function Navbar({ theme, setTheme }: { theme: string; setTheme: (theme: "dark" |
               <span className="hidden sm:inline">Gestión Canchas</span>
               <span className="sm:hidden">Canchas</span>
             </Button>
-            
-            {/* Toggle Theme */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="text-white hover:bg-white/10 flex-shrink-0"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
           </div>
         </div>
       </div>
@@ -178,23 +161,25 @@ function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative overflow-hidden py-12 md:py-20">
+      <div className="relative overflow-hidden py-8 md:py-16">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-7xl mx-auto">
             {/* Badge superior */}
-            <div className="flex justify-center mb-6 md:mb-8">
+            <div className="flex justify-center mb-4 md:mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pichangon-accent/20 border border-pichangon-accent/30">
                 <span className="w-2 h-2 rounded-full bg-pichangon-accent animate-pulse"></span>
-                <span className="text-white text-sm font-medium">La app para organizar fútbol amateur en Perú</span>
+                <span className="text-white text-xs sm:text-sm font-medium text-center">
+                  La app para organizar fútbol amateur en Perú
+                </span>
               </div>
             </div>
 
             {/* Grid principal: Texto a la izquierda, mockups a la derecha */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Contenido izquierdo */}
               <div className="text-center lg:text-left">
                 {/* Título grande */}
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
                   <span className="block text-white">Pelotea.</span>
                   <span className="block bg-gradient-to-r from-pichangon-accent to-green-400 bg-clip-text text-transparent">
                     Donde quieras.
@@ -205,7 +190,7 @@ function HomePage() {
                 </h1>
                 
                 {/* Descripción */}
-                <p className="text-white/80 text-lg md:text-xl mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="text-white/80 text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                   Encuentra pichangas cerca de ti, únete a una gran comunidad futbolera 
                   en Perú y vive cada partido como si fuera la final.
                 </p>
@@ -221,7 +206,7 @@ function HomePage() {
                     <img 
                       src="https://res.cloudinary.com/davyafbvj/image/upload/v1770725318/apple-1_iaq2mx.png"
                       alt="Descargar en App Store"
-                      className="h-14 w-auto"
+                      className="h-12 sm:h-14 w-auto"
                     />
                   </a>
                   <a 
@@ -233,7 +218,7 @@ function HomePage() {
                     <img 
                       src="https://res.cloudinary.com/davyafbvj/image/upload/v1770725372/disponible-en-google-play-badge_kjqimi.png"
                       alt="Descargar en Google Play"
-                      className="h-14 w-auto"
+                      className="h-12 sm:h-14 w-auto"
                     />
                   </a>
                 </div>
@@ -288,30 +273,34 @@ function HomePage() {
       </div>
 
       {/* How it Works Section */}
-      <div className="py-20 md:py-32">
+      <div className="py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <p className="text-pichangon-accent text-sm font-semibold mb-2 uppercase tracking-wider">Cómo funciona</p>
-            <h2 className="text-4xl md:text-6xl font-bold text-white">
+          <div className="text-center mb-10 md:mb-12">
+            <p className="text-pichangon-accent text-xs sm:text-sm font-semibold mb-2 uppercase tracking-wider">
+              Cómo funciona
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white px-4">
               De la descarga al partido
               <br />
               <span className="text-white/60">en 3 simples pasos</span>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
             {/* Step 1 */}
-            <Card className="card-dark p-8 hover-lift">
-              <div className="w-16 h-16 rounded-2xl bg-pichangon-accent/20 flex items-center justify-center mb-6">
-                <Search className="w-8 h-8 text-pichangon-accent" />
+            <Card className="card-dark p-6 md:p-8 hover-lift">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-pichangon-accent/20 flex items-center justify-center mb-4 md:mb-6">
+                <Search className="w-7 h-7 md:w-8 md:h-8 text-pichangon-accent" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Encuentra tu partido</h3>
-              <p className="text-white/70 text-lg leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">
+                Encuentra tu partido
+              </h3>
+              <p className="text-white/70 text-base md:text-lg leading-relaxed">
                 Explora cientos de pichangas en las mejores canchas, con horarios convenientes y niveles que se ajustan a tu preferencia.
               </p>
               
               {/* Mini mockup */}
-              <div className="mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
+              <div className="mt-6 md:mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
                 <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center overflow-hidden">
                   <img 
                     src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_5_e9ajtx.png "
@@ -327,17 +316,19 @@ function HomePage() {
             </Card>
 
             {/* Step 2 */}
-            <Card className="card-dark p-8 hover-lift">
-              <div className="w-16 h-16 rounded-2xl bg-pichangon-accent/20 flex items-center justify-center mb-6">
-                <CalendarCheck className="w-8 h-8 text-pichangon-accent" />
+            <Card className="card-dark p-6 md:p-8 hover-lift">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-pichangon-accent/20 flex items-center justify-center mb-4 md:mb-6">
+                <CalendarCheck className="w-7 h-7 md:w-8 md:h-8 text-pichangon-accent" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Reserva tu lugar</h3>
-              <p className="text-white/70 text-lg leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">
+                Reserva tu lugar
+              </h3>
+              <p className="text-white/70 text-base md:text-lg leading-relaxed">
                 Revisa los detalles del partido, invita a tus amigos e interactúa con otros jugadores confirmados.
               </p>
               
               {/* Mini mockup */}
-              <div className="mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
+              <div className="mt-6 md:mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
                 <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center overflow-hidden">
                   <img 
                     src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_2_j6lgto.png"
@@ -353,17 +344,19 @@ function HomePage() {
             </Card>
 
             {/* Step 3 */}
-            <Card className="card-dark p-8 hover-lift">
-              <div className="w-16 h-16 rounded-2xl bg-pichangon-accent/20 flex items-center justify-center mb-6">
-                <Users className="w-8 h-8 text-pichangon-accent" />
+            <Card className="card-dark p-6 md:p-8 hover-lift">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-pichangon-accent/20 flex items-center justify-center mb-4 md:mb-6">
+                <Users className="w-7 h-7 md:w-8 md:h-8 text-pichangon-accent" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Llega y juega</h3>
-              <p className="text-white/70 text-lg leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">
+                Llega y juega
+              </h3>
+              <p className="text-white/70 text-base md:text-lg leading-relaxed">
                 Regístrate en la cancha, disfruta del fútbol y haz nuevas amistades con personas que comparten tu pasión por el deporte.
               </p>
               
               {/* Mini mockup */}
-              <div className="mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
+              <div className="mt-6 md:mt-8 rounded-2xl overflow-hidden bg-black/30 p-4">
                 <div className="aspect-[9/16] rounded-xl bg-gradient-to-br from-pichangon-accent/20 to-pichangon-accent/5 flex items-center justify-center overflow-hidden">
                   <img 
                     src="https://res.cloudinary.com/davyafbvj/image/upload/v1764331877/Mockups_App_4_vrxcrm.png"
@@ -382,17 +375,21 @@ function HomePage() {
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 md:py-32">
+      <div className="py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 px-4">
             ¿Listo para jugar?
           </h2>
-          <p className="text-white/80 text-xl mb-12 max-w-2xl mx-auto">
+          <p className="text-white/80 text-base sm:text-lg md:text-xl mb-8 md:mb-10 max-w-2xl mx-auto px-4">
             Descarga PICHANGON hoy y únete a miles de jugadores en todo Perú.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white gap-2">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+            <Button 
+              size="lg" 
+              className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white gap-2 text-base md:text-lg px-6 md:px-8 py-5 md:py-6"
+              onClick={() => window.open('https://apps.apple.com/es/app/pichangon/id6755395709', '_blank')}
+            >
               <Download className="w-5 h-5" />
               Descargar ahora
             </Button>
@@ -404,32 +401,33 @@ function HomePage() {
       <FAQ />
 
       {/* Footer */}
-      <footer className="py-8">
+      <footer className="py-8 md:py-10">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-2">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-4">
             <button
               onClick={() => navigate("/privacy")}
-              className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
+              className="text-pichangon-accent hover:text-pichangon-accent/80 text-xs sm:text-sm underline"
             >
               Política de Privacidad
             </button>
             <span className="text-white/40 hidden sm:inline">•</span>
             <button
               onClick={() => navigate("/terms")}
-              className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
+              className="text-pichangon-accent hover:text-pichangon-accent/80 text-xs sm:text-sm underline"
             >
               Términos y Condiciones
             </button>
             <span className="text-white/40 hidden sm:inline">•</span>
             <button
               onClick={() => navigate("/cookies")}
-              className="text-pichangon-accent hover:text-pichangon-accent/80 text-sm underline"
+              className="text-pichangon-accent hover:text-pichangon-accent/80 text-xs sm:text-sm underline"
             >
               Política de Cookies
             </button>
           </div>
-          <p className="text-white/60 text-sm">
+          <p className="text-white/60 text-xs sm:text-sm px-4 leading-relaxed">
             © 2025 PICHANGON. Plataforma digital para fútbol amateur en Perú.  
+            <br className="sm:hidden" />
             Pichangón es una plataforma operada bajo la marca PICHANGÓN DEL BARRIO.
           </p>
         </div>

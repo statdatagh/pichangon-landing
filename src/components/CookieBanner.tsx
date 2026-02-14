@@ -1,3 +1,4 @@
+// src/components/CookieBanner.tsx
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { X, Cookie, Settings } from "lucide-react";
@@ -84,7 +85,7 @@ export function CookieBanner() {
                           o configurar tus preferencias.{" "}
                           <button
                             onClick={() => navigate("/cookies")}
-                            className="text-pichangon-accent hover:text-pichangon-accent/80 underline"
+                            className="text-pichangon-accent hover:text-pichangon-accent/80 underline font-medium"
                           >
                             Más información
                           </button>
@@ -93,12 +94,12 @@ export function CookieBanner() {
                     </div>
                   </div>
 
-                  {/* Botones */}
+                  {/* Botones - TODOS ACTUALIZADOS */}
                   <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                     <Button
                       variant="outline"
                       onClick={() => setShowSettings(true)}
-                      className="border-white/20 text-white hover:bg-white/10 gap-2 whitespace-nowrap"
+                      className="border-pichangon-accent/50 bg-pichangon-accent/10 text-white hover:bg-pichangon-accent/20 gap-2 whitespace-nowrap font-semibold"
                     >
                       <Settings className="w-4 h-4" />
                       Configurar
@@ -106,13 +107,13 @@ export function CookieBanner() {
                     <Button
                       variant="outline"
                       onClick={handleRejectAll}
-                      className="border-white/20 text-white hover:bg-white/10 whitespace-nowrap"
+                      className="border-pichangon-accent/50 bg-pichangon-accent/10 text-white hover:bg-pichangon-accent/20 whitespace-nowrap font-semibold"
                     >
                       Solo esenciales
                     </Button>
                     <Button
                       onClick={handleAcceptAll}
-                      className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white whitespace-nowrap"
+                      className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white font-semibold whitespace-nowrap"
                     >
                       Aceptar todas
                     </Button>
@@ -140,7 +141,7 @@ export function CookieBanner() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <h4 className="text-white font-semibold">Cookies Necesarias</h4>
-                        <span className="text-xs bg-pichangon-accent/20 text-pichangon-accent px-2 py-1 rounded">
+                        <span className="text-xs bg-pichangon-accent/20 text-pichangon-accent px-2 py-1 rounded font-medium">
                           Siempre activas
                         </span>
                       </div>
@@ -216,13 +217,13 @@ export function CookieBanner() {
                   <Button
                     variant="outline"
                     onClick={handleRejectAll}
-                    className="border-white/20 text-white hover:bg-white/10 flex-1"
+                    className="border-pichangon-accent/50 bg-pichangon-accent/10 text-white hover:bg-pichangon-accent/20 flex-1 font-semibold"
                   >
                     Rechazar todas
                   </Button>
                   <Button
                     onClick={handleSavePreferences}
-                    className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white flex-1"
+                    className="bg-pichangon-accent hover:bg-pichangon-accent/90 text-white font-semibold flex-1"
                   >
                     Guardar preferencias
                   </Button>
@@ -232,7 +233,7 @@ export function CookieBanner() {
                   Puedes cambiar tus preferencias en cualquier momento desde nuestra{" "}
                   <button
                     onClick={() => navigate("/cookies")}
-                    className="text-pichangon-accent hover:text-pichangon-accent/80 underline"
+                    className="text-pichangon-accent hover:text-pichangon-accent/80 underline font-medium"
                   >
                     Política de Cookies
                   </button>
