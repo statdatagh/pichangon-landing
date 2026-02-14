@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "TEAM_ID.com.pichangon.app",
+        "appID": "Z2K7TMX724.com.pichangon.app",
         "paths": ["/pichanga/*", "/torneo/*"]
       }
     ]
