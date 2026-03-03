@@ -97,6 +97,7 @@ interface RecentReservation {
   owner_approval_status: string;
   organizer_name: string;
   created_at: string;
+  collection_hours: number | null;
 }
 
 interface DashboardData {
@@ -248,7 +249,17 @@ function FieldOwnerDashboardContent() {
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' });
 
-  const formatTime = (timeStr: string) => String(timeStr).substring(0, 5);
+  const formatTime = (timeStr: string) =>
+    String(timeStr).substring(0, 5);
+
+  const formatHours = (hours: number | null) => {
+    if (!hours) return '-';
+
+    const h = Math.floor(hours);
+    const m = Math.round((hours - h) * 60);
+
+    return `${h}h ${m}m`;
+  };
 
   const statusLabel = (status: string, approvalStatus: string) => {
     if (approvalStatus === 'pending_approval') return { label: 'Pendiente aprobación', color: 'bg-yellow-500/20 border-yellow-500/30 text-yellow-300' };
@@ -709,11 +720,12 @@ function FieldOwnerDashboardContent() {
                 <thead>
                   <tr className="border-b border-white/10">
                     <th className="text-left py-3 px-6 text-white/60 font-medium text-sm">Organizador</th>
-                    <th className="text-left py-3 px-6 text-white/60 font-medium text-sm">Solicitud</th>
-                    <th className="text-left py-3 px-6 text-white/60 font-medium text-sm">Fecha reserva</th>
+                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Solicitud</th>
+                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Fecha reserva</th>
                     <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Horario</th>
-                    <th className="text-right py-3 px-6 text-white/60 font-medium text-sm">Costo cancha</th>
-                    <th className="text-right py-3 px-6 text-white/60 font-medium text-sm">Recaudado</th>
+                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Costo cancha</th>
+                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Recaudado</th>
+                    <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Tiempo Pago Completo</th>
                     <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Estado</th>
                   </tr>
                 </thead>
@@ -726,19 +738,19 @@ function FieldOwnerDashboardContent() {
                     return (
                       <tr key={r.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                         <td className="py-3 px-6 text-white">{r.organizer_name}</td>
-                        <td className="py-3 px-6">
+                        <td className="py-3 px-6 text-center">
                           <p className="text-sm text-white/70">{createdDate}</p>
                           <p className="text-xs text-white/40">{createdTime}</p>
                         </td>
-                        <td className="py-3 px-6 text-sm text-white/60">{formatDate(r.reservation_date)}</td>
+                        <td className="py-3 px-6 text-sm text-white/60 text-center">{formatDate(r.reservation_date)}</td>
                         <td className="py-3 px-6 text-center text-sm text-white/60">
                           {formatTime(r.start_time)} – {formatTime(r.end_time)}
                         </td>
-                        <td className="py-3 px-6 text-right font-semibold text-pichangon-accent">
+                        <td className="py-3 px-6 text-center font-semibold text-pichangon-accent">
                           S/ {r.total_field_cost}
                         </td>
-                        <td className="py-3 px-6">
-                          <div className="flex flex-col gap-1 w-[140px] ml-auto">
+                        <td className="py-3 px-6 text-center">
+                          <div className="flex flex-col gap-1 w-[140px] mx-auto">
                             <div className="flex justify-between text-xs text-white/50">
                               <span>S/ {r.amount_collected}</span>
                               <span>S/ {r.total_field_cost}</span>
@@ -751,8 +763,12 @@ function FieldOwnerDashboardContent() {
                             </div>
                           </div>
                         </td>
+                        <td className="py-3 px-6 text-center text-sm text-white/70">
+                          {formatHours(r.collection_hours)}
+                        </td>
+
                         <td className="py-3 px-6 text-center">
-                          <span className={`inline-block px-3 py-1 rounded-md text-xs font-medium border ${s.color}`}>
+                        <span className={`inline-block px-3 py-1 rounded-md text-xs font-medium border ${s.color}`}>
                             {s.label}
                           </span>
                         </td>
