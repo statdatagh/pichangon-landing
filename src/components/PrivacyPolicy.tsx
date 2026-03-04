@@ -224,6 +224,13 @@ export function PrivacyPolicy() {
               </div>
 
               <div>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Bunny.net</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Utilizamos Bunny.net para el almacenamiento y distribución de videos dentro de la aplicación mediante una red de distribución de contenido (CDN). Cuando los usuarios acceden a estos videos, ciertos datos técnicos como la dirección IP o información del dispositivo pueden ser procesados por Bunny.net para garantizar la correcta entrega del contenido.
+                </p>
+              </div>
+
+              <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Requisitos Legales</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
                   Podemos divulgar información si es requerido por ley o para proteger nuestros derechos legales.
@@ -232,8 +239,7 @@ export function PrivacyPolicy() {
             </div>
 
             <p className="text-white/70 text-sm mt-4 leading-relaxed">
-              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden usarlos 
-              para los fines especificados.
+              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden utilizarlos para los fines especificados.
             </p>
           </div>
         </section>
