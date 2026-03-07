@@ -124,7 +124,7 @@ function Navbar() {
             {/* Inicio - Solo visible en desktop */}
             <Button 
               variant="ghost" 
-              className="hidden sm:flex text-white hover:bg-pichangon-accent/20 hover:text-white text-sm md:text-base px-3 md:px-4"
+              className="hidden sm:flex text-white hover:bg-white/10 hover:text-pichangon-accent text-sm md:text-base px-3 md:px-4"
               onClick={() => navigate("/")}
             >
               Inicio
@@ -133,7 +133,7 @@ function Navbar() {
             {/* Soporte */}
             <Button 
               variant="ghost" 
-              className="text-white hover:bg-pichangon-accent/20 hover:text-white gap-1 md:gap-2 text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4"
+              className="text-white hover:bg-white/10 hover:text-pichangon-accent gap-1 md:gap-2 text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4"
               onClick={() => navigate("/support")}
             >
               <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
