@@ -239,7 +239,7 @@ export function PrivacyPolicy() {
             </div>
 
             <p className="text-white/70 text-sm mt-4 leading-relaxed">
-              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden utilizarlos para los fines especificados.
+              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden utilizarlos para los fines especificados.render
             </p>
           </div>
         </section>

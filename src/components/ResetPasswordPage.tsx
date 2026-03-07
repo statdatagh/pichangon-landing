@@ -7,7 +7,7 @@ import { Input } from './ui/input';
 import { AlertCircle, CheckCircle, Eye, EyeOff, Lock, KeyRound } from 'lucide-react';
 
 // ✅ MISMA URL QUE SUPPORTSSECTION - Consistencia en toda la app
-const API_BASE_URL = 'https://pichangon.onrender.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL as string;
 
 // ✅ Toast simple sin dependencias
 const showToast = (message: string, type: 'success' | 'error') => {
