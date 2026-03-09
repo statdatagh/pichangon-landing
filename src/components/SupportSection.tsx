@@ -16,6 +16,7 @@ export function SupportSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('Error al enviar el mensaje. Por favor, intenta de nuevo.');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,15 +33,16 @@ export function SupportSection() {
       });
 
       const data = await response.json();
-
-      if (data.success) {
+      
+      if (response.status === 429) {
+        setErrorMessage('Demasiados mensajes enviados. Por favor, intenta en 1 hora.');
+        setSubmitStatus('error');
+      } else if (data.success) {
         setSubmitStatus('success');
         setFormData({ name: "", email: "", subject: "", message: "" });
-        
-        setTimeout(() => {
-          setSubmitStatus('idle');
-        }, 5000);
+        setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
+        setErrorMessage('Error al enviar el mensaje. Por favor, intenta de nuevo.');
         setSubmitStatus('error');
       }
     } catch (error) {
@@ -107,7 +109,7 @@ export function SupportSection() {
             {submitStatus === 'error' && (
               <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg flex items-center gap-2">
                 <AlertCircle className="w-5 h-5 text-red-300" />
-                <p className="text-red-100">Error al enviar el mensaje. Por favor, intenta de nuevo.</p>
+                <p className="text-red-100">{errorMessage}</p>
               </div>
             )}
             
