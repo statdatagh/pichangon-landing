@@ -434,7 +434,7 @@ export function TermsAndConditions() {
                 href="mailto:soporte@pichangon.app" 
                 className="text-pichangon-accent hover:text-pichangon-accent/80 font-semibold"
               >
-                soporte@pichangon.app
+                contacto@pichangon.com
               </a>
             </div>
           </div>
