@@ -431,7 +431,7 @@ export function TermsAndConditions() {
             <div className="flex items-center gap-2">
               <span className="text-white/60">📧</span>
               <a 
-                href="mailto:soporte@pichangon.app" 
+                href="mailto:contacto@pichangon.com" 
                 className="text-pichangon-accent hover:text-pichangon-accent/80 font-semibold"
               >
                 contacto@pichangon.com
