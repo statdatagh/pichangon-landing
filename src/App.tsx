@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
 import { PichangaLandingPage } from './pages/PichangaLandingPage';
+import { OpenAppPage } from './pages/OpenAppPage';
 
 
 export default function App() {
@@ -90,6 +91,7 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/dashboard" element={<FieldOwnerDashboard />} />
         <Route path="/pichanga/:id" element={<PichangaLandingPage />} />
+        <Route path="/open-app" element={<OpenAppPage />} />
       </Routes>
 
       {/* ✅ BANNER DE COOKIES */}
