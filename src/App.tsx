@@ -18,13 +18,13 @@ import { CookieBanner } from "./components/CookieBanner";
 import { CookiePolicy } from "./components/CookiePolicy";
 import { initializeTracking } from "./utils/cookieConsent";
 import { useState, useEffect } from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
 import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
 import { PichangaLandingPage } from './pages/PichangaLandingPage';
 import { OpenAppPage } from './pages/OpenAppPage';
 
-
 export default function App() {
+  const location = useLocation();
   // ✅ ESTADO PARA VERIFICACIÓN
   const [verificationStatus, setVerificationStatus] = useState<{
     status: "success" | "error" | null;
@@ -79,8 +79,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1A5A3E] via-[#0F2919] via-60% to-[#051108]">
-      {/* Navigation */}
-      <Navbar />
+      {/* Navigation — oculto en dashboard */}
+      {location.pathname !== '/dashboard' && <Navbar />}
 
       <Routes>
         <Route path="/" element={<HomePage />} />

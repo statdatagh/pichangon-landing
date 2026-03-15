@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_API_URL as string;
 const GOOGLE_CLIENT_ID = '100841142335-0p0vtr494m7l7mk4h84uvtgmmtcmth5m.apps.googleusercontent.com';
 
-// Paleta de colores profesional (tonos verdes del tema)
 const CHART_COLORS = {
   primary: '#10b981',
   secondary: '#059669',
@@ -29,6 +28,7 @@ interface UserInfo {
 }
 
 interface Stats {
+  is_free: boolean;
   total_reservations: number;
   pending_approval: number;
   approved_pending_payment: number;
@@ -45,6 +45,13 @@ interface Stats {
   monthly_avg: string;
   best_day_label: string | null;
   best_day_amount: string;
+  quorum_rate: string;
+  top_slot: string | null;
+  total_attendees: number;
+  daily_avg_att: string;
+  monthly_avg_att: string;
+  best_day_label_att: string | null;
+  best_day_attendees: number;
 }
 
 interface RevenueByMonth {
@@ -55,10 +62,22 @@ interface RevenueByMonth {
   avg_revenue: string;
 }
 
+interface AttendanceByMonth {
+  month: string;
+  month_name: string;
+  total_attendees: number;
+}
+
 interface RevenuePeriod {
   period: string;
   period_label: string;
   revenue: string;
+}
+
+interface AttendancePeriod {
+  period: string;
+  period_label: string;
+  attendees: number;
 }
 
 interface PopularSlot {
@@ -97,13 +116,17 @@ interface RecentReservation {
   owner_approval_status: string;
   organizer_name: string;
   created_at: string;
+  max_players: number;
+  confirmed_count: number;
   collection_hours: number | null;
+  attendance_hours: number | null;
 }
 
 interface DashboardData {
   user_info: UserInfo;
   stats: Stats;
   revenue_by_month: RevenueByMonth[];
+  attendance_by_month: AttendanceByMonth[];
   popular_slots: PopularSlot[];
   peak_days: PeakDay[];
   top_organizers: TopOrganizer[];
@@ -111,6 +134,9 @@ interface DashboardData {
   revenue_by_day: RevenuePeriod[];
   revenue_by_month_detail: RevenuePeriod[];
   revenue_by_year: RevenuePeriod[];
+  attendance_by_day: AttendancePeriod[];
+  attendance_by_month_detail: AttendancePeriod[];
+  attendance_by_year: AttendancePeriod[];
   generated_at: string;
 }
 
@@ -144,21 +170,14 @@ function FieldOwnerDashboardContent() {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
-        email,
-        password
-      });
-
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
       const { token, user } = response.data.data;
-
       if (user.user_type !== 'field_owner') {
         setError('Solo dueños de canchas pueden acceder a este dashboard');
         setLoading(false);
         return;
       }
-
       localStorage.setItem('field_owner_token', token);
       setIsAuthenticated(true);
       loadDashboard(token);
@@ -172,20 +191,16 @@ function FieldOwnerDashboardContent() {
   const handleGoogleSuccess = async (credentialResponse: any) => {
     setLoading(true);
     setError('');
-
     try {
       const response = await axios.post(`${API_URL}/auth/google`, {
         idToken: credentialResponse.credential
       });
-
       const { token, user } = response.data.data;
-
       if (user.user_type !== 'field_owner') {
         setError('Solo dueños de canchas pueden acceder a este dashboard');
         setLoading(false);
         return;
       }
-
       localStorage.setItem('field_owner_token', token);
       setIsAuthenticated(true);
       loadDashboard(token);
@@ -230,15 +245,12 @@ function FieldOwnerDashboardContent() {
       const response = await axios.get(`${API_URL}/field-owner/export-excel`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-
       const data = response.data.data;
       const ws = XLSX.utils.json_to_sheet(data);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Reservas');
-
       const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
       const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
       saveAs(blob, response.data.filename);
     } catch (err) {
       alert('Error exportando a Excel');
@@ -254,10 +266,8 @@ function FieldOwnerDashboardContent() {
 
   const formatHours = (hours: number | null) => {
     if (!hours) return '-';
-
     const h = Math.floor(hours);
     const m = Math.round((hours - h) * 60);
-
     return `${h}h ${m}m`;
   };
 
@@ -281,16 +291,13 @@ function FieldOwnerDashboardContent() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pichangon-accent/20 border border-pichangon-accent/30 mb-6">
                 <span className="text-pichangon-accent text-sm font-medium">Dashboard para Dueños de Canchas</span>
               </div>
-
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 Accede a tu Dashboard
               </h1>
-
               <p className="text-white/70 text-lg">
                 Gestiona tus canchas y visualiza estadísticas en tiempo real
               </p>
             </div>
-
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
               <div className="mb-6">
                 <GoogleLogin
@@ -304,7 +311,6 @@ function FieldOwnerDashboardContent() {
                   width="100%"
                 />
               </div>
-
               <div className="relative mb-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-white/20"></div>
@@ -313,7 +319,6 @@ function FieldOwnerDashboardContent() {
                   <span className="px-2 bg-transparent text-white/60">O continúa con email</span>
                 </div>
               </div>
-
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-white/80 mb-2">Email</label>
@@ -326,7 +331,6 @@ function FieldOwnerDashboardContent() {
                     required
                   />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-white/80 mb-2">Contraseña</label>
                   <input
@@ -338,13 +342,11 @@ function FieldOwnerDashboardContent() {
                     required
                   />
                 </div>
-
                 {error && (
                   <div className="bg-red-500/20 border border-red-500/30 text-red-200 px-4 py-3 rounded-lg text-sm">
                     {error}
                   </div>
                 )}
-
                 <button
                   type="submit"
                   disabled={loading}
@@ -353,9 +355,8 @@ function FieldOwnerDashboardContent() {
                   {loading ? 'Accediendo...' : 'Acceder con Email'}
                 </button>
               </form>
-
               <p className="text-center text-sm text-white/50 mt-6">
-                ¿No tienes cuenta? Descarga nuestra app, regístrate y contáctanos a {' '}
+                ¿No tienes cuenta? Descarga nuestra app, regístrate y contáctanos a{' '}
                 <a href="/" className="text-pichangon-accent hover:text-pichangon-accent/80 font-medium">
                   contacto@pichangon.com
                 </a>
@@ -382,6 +383,7 @@ function FieldOwnerDashboardContent() {
   }
 
   const stats = dashboardData.stats;
+  const isFree = stats.is_free;
   const revenueData = dashboardData.revenue_by_month;
 
   return (
@@ -407,9 +409,16 @@ function FieldOwnerDashboardContent() {
                   <span className="text-white text-xl font-bold">PICHANGON</span>
                 </button>
               </div>
-              <p className="text-sm text-white/50 mt-1">
-                Bienvenido, {dashboardData.user_info.name}
-              </p>
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-sm text-white/50">
+                  Bienvenido, {dashboardData.user_info.name}
+                </p>
+                {isFree && (
+                  <span className="px-2 py-0.5 rounded-full text-xs bg-pichangon-accent/20 border border-pichangon-accent/30 text-pichangon-accent font-medium">
+                    Cancha gratuita
+                  </span>
+                )}
+              </div>
             </div>
             <div className="flex gap-2">
               <button
@@ -466,9 +475,10 @@ function FieldOwnerDashboardContent() {
 
       {/* Content */}
       <main className="container mx-auto px-4 md:px-6 py-6">
+
+        {/* ══════════════════════ RESUMEN ══════════════════════ */}
         {activeTab === 'resumen' && (
           <>
-            {/* Alerta de reservas pendientes de aprobación */}
             {stats.pending_approval > 0 && (
               <div className="mb-6 bg-yellow-500/10 border border-yellow-500/30 rounded-xl px-5 py-4 flex items-center gap-3">
                 <svg className="w-5 h-5 text-yellow-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -480,7 +490,7 @@ function FieldOwnerDashboardContent() {
               </div>
             )}
 
-            {/* Stats Cards */}
+            {/* Stats Cards — condicional según tipo de cancha */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <StatCard
                 title="TOTAL RESERVAS"
@@ -488,78 +498,132 @@ function FieldOwnerDashboardContent() {
                 subtitle={`${stats.confirmed_reservations} confirmadas`}
               />
               <StatCard
-                title="INGRESOS TOTALES"
-                value={`S/ ${stats.total_revenue}`}
-                subtitle="Total recaudado"
-              />
-              <StatCard
                 title="TASA DE RESERVAS CONCRETADAS"
                 value={`${stats.approval_rate}%`}
                 subtitle="Sobre el total de reservas solicitadas"
               />
-              <StatCard
-                title="JUGADORES ATENDIDOS"
-                value={stats.total_players_served}
-                subtitle="Total histórico"
-              />
+              {isFree ? (
+                <>
+                  <StatCard
+                    title="TASA DE QUÓRUM"
+                    value={`${stats.quorum_rate}%`}
+                    subtitle="Reservas con asistencia completa"
+                  />
+                  <StatCard
+                    title="HORARIO MÁS RESERVADO"
+                    value={stats.top_slot ?? '—'}
+                    subtitle="Hora de inicio más solicitada"
+                  />
+                </>
+              ) : (
+                <>
+                  <StatCard
+                    title="INGRESOS TOTALES"
+                    value={`S/ ${stats.total_revenue}`}
+                    subtitle="Total recaudado"
+                  />
+                  <StatCard
+                    title="JUGADORES ATENDIDOS"
+                    value={stats.total_players_served}
+                    subtitle="Total histórico"
+                  />
+                </>
+              )}
             </div>
 
-            {/* Revenue Chart */}
+            {/* Gráfico principal — condicional */}
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl mb-6">
-              <h2 className="text-lg font-semibold text-white mb-4">Ingresos por mes</h2>
-              {revenueData && revenueData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={revenueData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                    <XAxis
-                      dataKey="month"
-                      stroke="#ffffff40"
-                      style={{ fontSize: '12px' }}
-                      tickFormatter={(value) => {
-                        const [year, month] = value.split('-');
-                        const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-                        return `${months[parseInt(month) - 1]} '${year.slice(2)}`;
-                      }}
-                    />
-                    <YAxis
-                      stroke="#ffffff40"
-                      style={{ fontSize: '12px' }}
-                      tickFormatter={(value) => `S/ ${value}`}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: 'rgba(15, 41, 25, 0.95)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '8px',
-                        color: '#fff',
-                        fontSize: '13px',
-                        padding: '12px'
-                      }}
-                      labelFormatter={(value) => {
-                        const [year, month] = value.split('-');
-                        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-                        return `${months[parseInt(month) - 1]} ${year}`;
-                      }}
-                      formatter={(value: any, name: string) => {
-                        if (name === 'revenue') return [`S/ ${parseFloat(value).toFixed(2)}`, 'Ingresos'];
-                        return [value, name];
-                      }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="revenue"
-                      stroke={CHART_COLORS.primary}
-                      strokeWidth={3}
-                      name="revenue"
-                      dot={{ fill: CHART_COLORS.primary, r: 5, strokeWidth: 2, stroke: '#fff' }}
-                      activeDot={{ r: 7 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+              <h2 className="text-lg font-semibold text-white mb-4">
+                {isFree ? 'Asistentes por mes' : 'Ingresos por mes'}
+              </h2>
+              {isFree ? (
+                dashboardData.attendance_by_month.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={dashboardData.attendance_by_month}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                      <XAxis
+                        dataKey="month"
+                        stroke="#ffffff40"
+                        style={{ fontSize: '12px' }}
+                        tickFormatter={(value) => {
+                          const [year, month] = value.split('-');
+                          const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                          return `${months[parseInt(month) - 1]} '${year.slice(2)}`;
+                        }}
+                      />
+                      <YAxis stroke="#ffffff40" style={{ fontSize: '12px' }} />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: 'rgba(15, 41, 25, 0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '13px', padding: '12px' }}
+                        labelFormatter={(value) => {
+                          const [year, month] = value.split('-');
+                          const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                          return `${months[parseInt(month) - 1]} ${year}`;
+                        }}
+                        formatter={(value: any) => [value, 'Asistentes']}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="total_attendees"
+                        stroke={CHART_COLORS.primary}
+                        strokeWidth={3}
+                        dot={{ fill: CHART_COLORS.primary, r: 5, strokeWidth: 2, stroke: '#fff' }}
+                        activeDot={{ r: 7 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-white/50">
+                    No hay datos disponibles
+                  </div>
+                )
               ) : (
-                <div className="h-[300px] flex items-center justify-center text-white/50">
-                  No hay datos de ingresos disponibles
-                </div>
+                revenueData && revenueData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={revenueData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                      <XAxis
+                        dataKey="month"
+                        stroke="#ffffff40"
+                        style={{ fontSize: '12px' }}
+                        tickFormatter={(value) => {
+                          const [year, month] = value.split('-');
+                          const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                          return `${months[parseInt(month) - 1]} '${year.slice(2)}`;
+                        }}
+                      />
+                      <YAxis
+                        stroke="#ffffff40"
+                        style={{ fontSize: '12px' }}
+                        tickFormatter={(value) => `S/ ${value}`}
+                      />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: 'rgba(15, 41, 25, 0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '13px', padding: '12px' }}
+                        labelFormatter={(value) => {
+                          const [year, month] = value.split('-');
+                          const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                          return `${months[parseInt(month) - 1]} ${year}`;
+                        }}
+                        formatter={(value: any, name: string) => {
+                          if (name === 'revenue') return [`S/ ${parseFloat(value).toFixed(2)}`, 'Ingresos'];
+                          return [value, name];
+                        }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="revenue"
+                        stroke={CHART_COLORS.primary}
+                        strokeWidth={3}
+                        name="revenue"
+                        dot={{ fill: CHART_COLORS.primary, r: 5, strokeWidth: 2, stroke: '#fff' }}
+                        activeDot={{ r: 7 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-[300px] flex items-center justify-center text-white/50">
+                    No hay datos de ingresos disponibles
+                  </div>
+                )
               )}
             </div>
 
@@ -577,61 +641,32 @@ function FieldOwnerDashboardContent() {
                 <div className="flex gap-2 mb-4">
                   <button
                     onClick={() => setPeakTab('slots')}
-                    className={`px-4 py-2 text-sm rounded-lg ${
-                      peakTab === 'slots'
-                        ? 'bg-pichangon-accent text-white'
-                        : 'bg-white/10 text-white/60'
-                    }`}
+                    className={`px-4 py-2 text-sm rounded-lg ${peakTab === 'slots' ? 'bg-pichangon-accent text-white' : 'bg-white/10 text-white/60'}`}
                   >
                     Horarios populares
                   </button>
                   <button
                     onClick={() => setPeakTab('days')}
-                    className={`px-4 py-2 text-sm rounded-lg ${
-                      peakTab === 'days'
-                        ? 'bg-pichangon-accent text-white'
-                        : 'bg-white/10 text-white/60'
-                    }`}
+                    className={`px-4 py-2 text-sm rounded-lg ${peakTab === 'days' ? 'bg-pichangon-accent text-white' : 'bg-white/10 text-white/60'}`}
                   >
                     Días pico
                   </button>
                 </div>
-
                 <ResponsiveContainer width="100%" height={260}>
-                  <BarChart
-                    data={
-                      peakTab === 'slots'
-                        ? dashboardData.popular_slots
-                        : dashboardData.peak_days
-                    }
-                  >
+                  <BarChart data={peakTab === 'slots' ? dashboardData.popular_slots : dashboardData.peak_days}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                     <XAxis
                       dataKey={peakTab === 'slots' ? 'slot_time' : 'day_name'}
                       stroke="#ffffff40"
                       style={{ fontSize: '12px' }}
                     />
-                    <YAxis
-                      stroke="#ffffff40"
-                      style={{ fontSize: '12px' }}
-                    />
+                    <YAxis stroke="#ffffff40" style={{ fontSize: '12px' }} />
                     <Tooltip
                       cursor={false}
-                      contentStyle={{
-                        backgroundColor: 'rgba(15,41,25,0.95)',
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '8px',
-                        color: '#fff',
-                        fontSize: '13px',
-                        padding: '12px'
-                      }}
+                      contentStyle={{ backgroundColor: 'rgba(15,41,25,0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '13px', padding: '12px' }}
                       formatter={(value: any) => [`${value}`, 'Solicitudes']}
                     />
-                    <Bar
-                      dataKey="total_requests"
-                      fill={CHART_COLORS.primary}
-                      radius={[8, 8, 0, 0]}
-                    />
+                    <Bar dataKey="total_requests" fill={CHART_COLORS.primary} radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -639,6 +674,7 @@ function FieldOwnerDashboardContent() {
           </>
         )}
 
+        {/* ══════════════════════ ANÁLISIS ══════════════════════ */}
         {activeTab === 'analisis' && (
           <div className="space-y-6">
             {/* Top Organizadores Recurrentes */}
@@ -655,7 +691,9 @@ function FieldOwnerDashboardContent() {
                       <th className="text-left py-3 px-6 text-white/60 font-medium text-sm">Distrito</th>
                       <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Reservas</th>
                       <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Confirmadas</th>
-                      <th className="text-right py-3 px-6 text-white/60 font-medium text-sm">Total pagado</th>
+                      {!isFree && (
+                        <th className="text-right py-3 px-6 text-white/60 font-medium text-sm">Total pagado</th>
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -666,7 +704,9 @@ function FieldOwnerDashboardContent() {
                         <td className="py-3 px-6 text-white/50 text-sm">{org.district}</td>
                         <td className="py-3 px-6 text-center text-white">{org.total_reservations}</td>
                         <td className="py-3 px-6 text-center text-green-300">{org.confirmed_reservations}</td>
-                        <td className="py-3 px-6 text-right text-pichangon-accent font-medium">S/ {org.total_paid}</td>
+                        {!isFree && (
+                          <td className="py-3 px-6 text-right text-pichangon-accent font-medium">S/ {org.total_paid}</td>
+                        )}
                       </tr>
                     ))}
                   </tbody>
@@ -674,42 +714,72 @@ function FieldOwnerDashboardContent() {
               </div>
             </div>
 
-            {/* Recaudación - indicadores */}
-            <div>
-              <h2 className="text-lg font-semibold text-white mb-3">Recaudación</h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                {[
-                  { label: 'Total recaudado',  value: `S/ ${stats.total_collected}`,  color: 'text-white' },
-                  { label: 'Promedio diario',  value: `S/ ${stats.daily_avg}`,        color: 'text-pichangon-accent' },
-                  { label: 'Promedio mensual', value: `S/ ${stats.monthly_avg}`,      color: 'text-pichangon-accent' },
-                  { label: 'Mejor día',
-                    value: stats.best_day_label ? `S/ ${stats.best_day_amount}` : '—',
-                    sub: stats.best_day_label || '',
-                    color: 'text-pichangon-accent' },
-                ].map((card) => (
-                  <div key={card.label}>
-                    <p className="text-xs text-white/50 uppercase tracking-wide text-center mb-2">{card.label}</p>
-                    <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center h-20">
-                      <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
-                      {card.sub && <p className="text-xs text-white/40 mt-1">{card.sub}</p>}
+            {/* Recaudación / Asistencia — condicional */}
+            {isFree ? (
+              <div>
+                <h2 className="text-lg font-semibold text-white mb-3">Asistencia</h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  {[
+                    { label: 'Total asistentes',  value: stats.total_attendees,                                               color: 'text-white',             sub: undefined },
+                    { label: 'Promedio diario',    value: stats.daily_avg_att,                                                color: 'text-pichangon-accent',  sub: undefined },
+                    { label: 'Promedio mensual',   value: stats.monthly_avg_att,                                              color: 'text-pichangon-accent',  sub: undefined },
+                    { label: 'Mejor día',          value: stats.best_day_label_att ? `${stats.best_day_attendees} asist.` : '—', color: 'text-pichangon-accent', sub: stats.best_day_label_att || undefined },
+                  ].map((card) => (
+                    <div key={card.label}>
+                      <p className="text-xs text-white/50 uppercase tracking-wide text-center mb-2">{card.label}</p>
+                      <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center h-20">
+                        <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
+                        {card.sub && <p className="text-xs text-white/40 mt-1">{card.sub}</p>}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div>
+                <h2 className="text-lg font-semibold text-white mb-3">Recaudación</h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  {[
+                    { label: 'Total recaudado',  value: `S/ ${stats.total_collected}`,                              color: 'text-white',            sub: undefined },
+                    { label: 'Promedio diario',  value: `S/ ${stats.daily_avg}`,                                    color: 'text-pichangon-accent', sub: undefined },
+                    { label: 'Promedio mensual', value: `S/ ${stats.monthly_avg}`,                                  color: 'text-pichangon-accent', sub: undefined },
+                    { label: 'Mejor día',        value: stats.best_day_label ? `S/ ${stats.best_day_amount}` : '—', color: 'text-pichangon-accent', sub: stats.best_day_label || undefined },
+                  ].map((card) => (
+                    <div key={card.label}>
+                      <p className="text-xs text-white/50 uppercase tracking-wide text-center mb-2">{card.label}</p>
+                      <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center h-20">
+                        <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
+                        {card.sub && <p className="text-xs text-white/40 mt-1">{card.sub}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            {/* Gráfico recaudación por período - separado */}
+            {/* Gráfico por período — condicional */}
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl">
-              <h2 className="text-lg font-semibold text-white mb-4">Recaudación por período</h2>
-              <RevenueDetailChart
-                byDay={dashboardData.revenue_by_day ?? []}
-                byMonth={dashboardData.revenue_by_month_detail ?? []}
-                byYear={dashboardData.revenue_by_year ?? []}
-              />
+              <h2 className="text-lg font-semibold text-white mb-4">
+                {isFree ? 'Asistencia por período' : 'Recaudación por período'}
+              </h2>
+              {isFree ? (
+                <AttendanceDetailChart
+                  byDay={dashboardData.attendance_by_day ?? []}
+                  byMonth={dashboardData.attendance_by_month_detail ?? []}
+                  byYear={dashboardData.attendance_by_year ?? []}
+                />
+              ) : (
+                <RevenueDetailChart
+                  byDay={dashboardData.revenue_by_day ?? []}
+                  byMonth={dashboardData.revenue_by_month_detail ?? []}
+                  byYear={dashboardData.revenue_by_year ?? []}
+                />
+              )}
             </div>
           </div>
         )}
 
+        {/* ══════════════════════ RESERVAS ══════════════════════ */}
         {activeTab === 'reservas' && (
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden">
             <div className="p-6 border-b border-white/10">
@@ -720,12 +790,18 @@ function FieldOwnerDashboardContent() {
                 <thead>
                   <tr className="border-b border-white/10">
                     <th className="text-left py-3 px-6 text-white/60 font-medium text-sm">Organizador</th>
-                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Solicitud</th>
-                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Fecha reserva</th>
+                    <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Solicitud</th>
+                    <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Fecha reserva</th>
                     <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Horario</th>
-                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Costo cancha</th>
-                    <th className="text-Center py-3 px-6 text-white/60 font-medium text-sm">Recaudado</th>
-                    <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Tiempo Pago Completo</th>
+                    {!isFree && (
+                      <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Costo cancha</th>
+                    )}
+                    <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">
+                      {isFree ? 'Asistencia' : 'Recaudado'}
+                    </th>
+                    <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">
+                      {isFree ? 'Tiempo asistencia completa' : 'Tiempo Pago Completo'}
+                    </th>
                     <th className="text-center py-3 px-6 text-white/60 font-medium text-sm">Estado</th>
                   </tr>
                 </thead>
@@ -735,6 +811,10 @@ function FieldOwnerDashboardContent() {
                     const createdAt = new Date(r.created_at);
                     const createdDate = createdAt.toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' });
                     const createdTime = createdAt.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+                    const progressPct = isFree
+                      ? (r.max_players > 0 ? Math.min((r.confirmed_count / r.max_players) * 100, 100) : 0)
+                      : (parseFloat(r.total_field_cost) > 0 ? Math.min((parseFloat(r.amount_collected) / parseFloat(r.total_field_cost)) * 100, 100) : 0);
+
                     return (
                       <tr key={r.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                         <td className="py-3 px-6 text-white">{r.organizer_name}</td>
@@ -746,29 +826,39 @@ function FieldOwnerDashboardContent() {
                         <td className="py-3 px-6 text-center text-sm text-white/60">
                           {formatTime(r.start_time)} – {formatTime(r.end_time)}
                         </td>
-                        <td className="py-3 px-6 text-center font-semibold text-pichangon-accent">
-                          S/ {r.total_field_cost}
-                        </td>
+                        {!isFree && (
+                          <td className="py-3 px-6 text-center font-semibold text-pichangon-accent">
+                            S/ {r.total_field_cost}
+                          </td>
+                        )}
                         <td className="py-3 px-6 text-center">
                           <div className="flex flex-col gap-1 w-[140px] mx-auto">
                             <div className="flex justify-between text-xs text-white/50">
-                              <span>S/ {r.amount_collected}</span>
-                              <span>S/ {r.total_field_cost}</span>
+                              {isFree ? (
+                                <>
+                                  <span>{r.confirmed_count} confirmados</span>
+                                  <span>{r.max_players} máx</span>
+                                </>
+                              ) : (
+                                <>
+                                  <span>S/ {r.amount_collected}</span>
+                                  <span>S/ {r.total_field_cost}</span>
+                                </>
+                              )}
                             </div>
                             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
                               <div
                                 className="h-full rounded-full bg-pichangon-accent"
-                                style={{ width: `${Math.min(parseFloat(r.amount_collected) / parseFloat(r.total_field_cost) * 100, 100)}%` }}
+                                style={{ width: `${progressPct}%` }}
                               />
                             </div>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center text-sm text-white/70">
-                          {formatHours(r.collection_hours)}
+                          {isFree ? formatHours(r.attendance_hours) : formatHours(r.collection_hours)}
                         </td>
-
                         <td className="py-3 px-6 text-center">
-                        <span className={`inline-block px-3 py-1 rounded-md text-xs font-medium border ${s.color}`}>
+                          <span className={`inline-block px-3 py-1 rounded-md text-xs font-medium border ${s.color}`}>
                             {s.label}
                           </span>
                         </td>
@@ -786,7 +876,7 @@ function FieldOwnerDashboardContent() {
 }
 
 // ====================================================================
-// COMPONENTE: TARJETA DE ESTADÍSTICA (MINIMALISTA)
+// COMPONENTE: TARJETA DE ESTADÍSTICA
 // ====================================================================
 function StatCard({ title, value, subtitle }: StatCardProps) {
   return (
@@ -800,6 +890,9 @@ function StatCard({ title, value, subtitle }: StatCardProps) {
   );
 }
 
+// ====================================================================
+// COMPONENTE: PIPELINE CHART
+// ====================================================================
 function PipelineChart({ pending, inProcess, confirmed, cancelled }: {
   pending: number;
   inProcess: number;
@@ -840,14 +933,7 @@ function PipelineChart({ pending, inProcess, confirmed, cancelled }: {
               ))}
             </Pie>
             <Tooltip
-              contentStyle={{
-                backgroundColor: 'rgba(15,41,25,0.95)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '8px',
-                color: '#fff',
-                fontSize: '13px',
-                padding: '10px 14px'
-              }}
+              contentStyle={{ backgroundColor: 'rgba(15,41,25,0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '13px', padding: '10px 14px' }}
               itemStyle={{ color: '#ffffff' }}
               labelStyle={{ color: '#9ca3af' }}
               formatter={(value: any, name: string) => [
@@ -869,13 +955,15 @@ function PipelineChart({ pending, inProcess, confirmed, cancelled }: {
   );
 }
 
+// ====================================================================
+// COMPONENTE: REVENUE DETAIL CHART (canchas de pago)
+// ====================================================================
 function RevenueDetailChart({ byDay = [], byMonth = [], byYear = [] }: {
   byDay?: { period: string; period_label: string; revenue: string }[];
   byMonth?: { period: string; period_label: string; revenue: string }[];
   byYear?: { period: string; period_label: string; revenue: string }[];
 }) {
   const [tab, setTab] = React.useState<'day' | 'month' | 'year'>('day');
-
   const data = tab === 'day' ? byDay : tab === 'month' ? byMonth : byYear;
 
   return (
@@ -916,7 +1004,58 @@ function RevenueDetailChart({ byDay = [], byMonth = [], byYear = [] }: {
   );
 }
 
+// ====================================================================
+// COMPONENTE: ATTENDANCE DETAIL CHART (canchas gratuitas)
+// ====================================================================
+function AttendanceDetailChart({ byDay = [], byMonth = [], byYear = [] }: {
+  byDay?: { period: string; period_label: string; attendees: number }[];
+  byMonth?: { period: string; period_label: string; attendees: number }[];
+  byYear?: { period: string; period_label: string; attendees: number }[];
+}) {
+  const [tab, setTab] = React.useState<'day' | 'month' | 'year'>('day');
+  const data = tab === 'day' ? byDay : tab === 'month' ? byMonth : byYear;
+
+  return (
+    <div>
+      <div className="flex gap-2 mb-4">
+        {(['day', 'month', 'year'] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-3 py-1.5 text-sm rounded-lg ${tab === t ? 'bg-pichangon-accent text-white' : 'bg-white/10 text-white/60'}`}
+          >
+            {t === 'day' ? 'Por día' : t === 'month' ? 'Por mes' : 'Por año'}
+          </button>
+        ))}
+      </div>
+      {data.length === 0 ? (
+        <div className="h-[220px] flex items-center justify-center text-white/50 text-sm">
+          No hay datos disponibles
+        </div>
+      ) : (
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+            <XAxis dataKey="period_label" stroke="#ffffff40" style={{ fontSize: '11px' }} />
+            <YAxis stroke="#ffffff40" style={{ fontSize: '11px' }} />
+            <Tooltip
+              cursor={false}
+              contentStyle={{ backgroundColor: 'rgba(15,41,25,0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '13px', padding: '10px 14px' }}
+              itemStyle={{ color: '#ffffff' }}
+              labelStyle={{ color: '#9ca3af' }}
+              formatter={(value: any) => [value, 'Asistentes']}
+            />
+            <Bar dataKey="attendees" fill="#10b981" radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
+    </div>
+  );
+}
+
+// ====================================================================
 // WRAPPER CON GOOGLE PROVIDER
+// ====================================================================
 function FieldOwnerDashboard() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
