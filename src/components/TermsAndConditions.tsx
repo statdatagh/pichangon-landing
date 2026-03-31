@@ -78,6 +78,10 @@ export function TermsAndConditions() {
                 <span className="text-pichangon-accent mt-1">•</span>
                 <span>Calificar a otros usuarios después de cada pichanga</span>
               </li>
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-pichangon-accent mt-1">•</span>
+                <span>Buscar disponibilidad de canchas en plataformas externas mediante integración tecnológica</span>
+              </li>
             </ul>
             <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
               <p className="text-white/80 leading-relaxed mb-2">
@@ -212,28 +216,64 @@ export function TermsAndConditions() {
         {/* 7. Información de Ubicación */}
         <section className="mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">
-            7. Información de Ubicación
+            7. Información de Ubicación (Geolocalización)
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
+
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-4">
               <p className="text-white/80 leading-relaxed">
-                <span className="text-blue-400 font-semibold">ℹ️ Importante sobre ubicación:</span>
+                <span className="text-blue-400 font-semibold">ℹ️ Uso de geolocalización:</span>
               </p>
             </div>
+
             <p className="text-white/80 leading-relaxed mb-4">
-              PICHANGON <span className="text-pichangon-accent font-semibold">no accede al GPS del dispositivo</span>, 
-              ni recopila ubicación exacta, en tiempo real o aproximada.
+              PICHANGON puede acceder a la ubicación del usuario mediante el uso de 
+              <span className="text-pichangon-accent font-semibold"> tecnología GPS del dispositivo</span>, 
+              siempre que el usuario otorgue su consentimiento previo y explícito.
             </p>
+
             <p className="text-white/80 leading-relaxed mb-4">
-              El usuario solo puede ingresar manualmente información básica como el distrito, 
-              con fines puramente informativos en su perfil.
+              La información de ubicación se utiliza exclusivamente para:
             </p>
+
+            <ul className="space-y-2 mb-4">
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-pichangon-accent mt-1">•</span>
+                <span>Mostrar canchas disponibles cercanas al usuario</span>
+              </li>
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-pichangon-accent mt-1">•</span>
+                <span>Calcular distancias aproximadas entre el usuario y las canchas</span>
+              </li>
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-pichangon-accent mt-1">•</span>
+                <span>Optimizar los resultados de búsqueda mediante algoritmos de proximidad</span>
+              </li>
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-pichangon-accent mt-1">•</span>
+                <span>Mejorar la experiencia del usuario en la búsqueda de reservas externas</span>
+              </li>
+            </ul>
+
             <p className="text-white/80 leading-relaxed mb-4">
-              La App no utiliza esta información para geolocalizar, sugerir eventos cercanos ni rastrear actividades.
+              PICHANGON no almacena la ubicación exacta del usuario de forma permanente, 
+              ni realiza seguimiento continuo en segundo plano.
             </p>
+
+            <p className="text-white/80 leading-relaxed mb-4">
+              La ubicación no se comparte con otros usuarios de la plataforma ni con terceros, 
+              salvo cuando sea estrictamente necesario para el funcionamiento del servicio 
+              o requerido por ley.
+            </p>
+
+            <p className="text-white/80 leading-relaxed mb-4">
+              El usuario puede revocar el acceso a su ubicación en cualquier momento desde la 
+              configuración de su dispositivo, lo cual puede limitar ciertas funcionalidades 
+              de la App.
+            </p>
+
             <p className="text-white/70 text-sm">
-              Si en el futuro se habilitan funciones basadas en ubicación, se informará previamente 
-              y se actualizará la Política de Privacidad.
+              Para más información sobre el tratamiento de datos personales, consulte nuestra Política de Privacidad.
             </p>
           </div>
         </section>
@@ -377,6 +417,20 @@ export function TermsAndConditions() {
               <li className="text-white/80 flex items-start gap-2">
                 <span className="text-yellow-400 mt-1">⚠</span>
                 <span>Información falsa proporcionada por los usuarios</span>
+              </li>
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-yellow-400 mt-1">⚠</span>
+                <span>La disponibilidad, precios o condiciones de canchas ofrecidas por plataformas externas</span>
+              </li>
+
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-yellow-400 mt-1">⚠</span>
+                <span>Errores, desactualizaciones o inconsistencias en la información obtenida de servicios externos</span>
+              </li>
+
+              <li className="text-white/80 flex items-start gap-2">
+                <span className="text-yellow-400 mt-1">⚠</span>
+                <span>El proceso de reserva realizado fuera de la App, el cual es gestionado por terceros</span>
               </li>
             </ul>
             <p className="text-pichangon-accent font-semibold">

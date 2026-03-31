@@ -50,26 +50,40 @@ export function PrivacyPolicy() {
               </div>
 
               <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Datos de Ubicación Ingresados Manualmente</h3>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Datos de Ubicación</h3>
+
                 <p className="text-white/70 text-sm leading-relaxed mb-2">
-                  PICHANGON <span className="text-pichangon-accent font-semibold">NO accede al GPS de tu dispositivo</span> ni 
-                  recopila tu ubicación geográfica automáticamente. Solo almacenamos información de ubicación que tú ingresas 
-                  voluntariamente:
+                  PICHANGON puede acceder a la ubicación del dispositivo mediante tecnología GPS, 
+                  únicamente cuando el usuario lo autoriza explícitamente.
                 </p>
+
+                <p className="text-white/70 text-sm leading-relaxed mb-2">
+                  Recopilamos los siguientes datos de ubicación:
+                </p>
+
                 <ul className="space-y-2 ml-4">
                   <li className="text-white/70 text-sm flex items-start gap-2">
                     <span className="text-pichangon-accent mt-1">→</span>
-                    <span>El distrito que ingresas manualmente en tu perfil (opcional)</span>
+                    <span>Ubicación del dispositivo obtenida mediante GPS (latitud y longitud)</span>
                   </li>
                   <li className="text-white/70 text-sm flex items-start gap-2">
                     <span className="text-pichangon-accent mt-1">→</span>
-                    <span>La dirección o ubicación de canchas que los organizadores ingresan al crear pichangas</span>
+                    <span>Ubicaciones ingresadas manualmente (direcciones o distritos)</span>
                   </li>
                 </ul>
+
                 <p className="text-white/70 text-sm mt-2 leading-relaxed">
-                  Esta información se utiliza únicamente para mostrar información básica en perfiles y en los detalles 
-                  de las pichangas. No realizamos geolocalización, seguimiento de ubicación ni sugerencias basadas en 
-                  tu ubicación actual.
+                  La ubicación se utiliza exclusivamente para mostrar canchas cercanas, calcular distancias 
+                  y mejorar los resultados de búsqueda dentro de la aplicación.
+                </p>
+
+                <p className="text-white/70 text-sm mt-2 leading-relaxed">
+                  No realizamos seguimiento continuo en segundo plano ni almacenamos la ubicación 
+                  exacta del usuario de forma permanente.
+                </p>
+
+                <p className="text-white/70 text-sm mt-2 leading-relaxed">
+                  El acceso a la ubicación es opcional y puede ser desactivado en cualquier momento desde la configuración del dispositivo.
                 </p>
               </div>
 
@@ -142,12 +156,31 @@ export function PrivacyPolicy() {
               </div>
 
               <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Información de Ubicación</h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  Mostramos el distrito que ingresas en tu perfil y las direcciones de canchas que los organizadores 
-                  proporcionan al crear pichangas. Esta información es puramente descriptiva y no se utiliza para 
-                  geolocalización, seguimiento o recomendaciones basadas en ubicación. Nunca compartimos tu distrito 
-                  con otros usuarios sin tu consentimiento explícito.
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Datos de Ubicación</h3>
+
+                <p className="text-white/70 text-sm leading-relaxed mb-2">
+                  Podemos recopilar información de ubicación de las siguientes formas:
+                </p>
+
+                <ul className="space-y-2 ml-4">
+                  <li className="text-white/70 text-sm flex items-start gap-2">
+                    <span className="text-pichangon-accent mt-1">→</span>
+                    <span>Datos ingresados manualmente, como distrito o dirección</span>
+                  </li>
+                  <li className="text-white/70 text-sm flex items-start gap-2">
+                    <span className="text-pichangon-accent mt-1">→</span>
+                    <span>Ubicación del dispositivo obtenida mediante GPS, solo con tu consentimiento</span>
+                  </li>
+                </ul>
+
+                <p className="text-white/70 text-sm mt-2 leading-relaxed">
+                  No compartimos tu ubicación precisa con otros usuarios.
+                </p>
+
+                <p className="text-white/70 text-sm mt-2 leading-relaxed">
+                  Esta información se utiliza para mostrar canchas cercanas, calcular distancias aproximadas 
+                  y optimizar los resultados de búsqueda. No realizamos seguimiento continuo ni utilizamos 
+                  la ubicación con fines publicitarios.
                 </p>
               </div>
 
@@ -192,6 +225,7 @@ export function PrivacyPolicy() {
                   Enviarte notificaciones importantes sobre tu cuenta, actualizaciones de partidos, recordatorios y 
                   comunicaciones relacionadas con el servicio.
                 </p>
+
               </div>
             </div>
           </div>
@@ -236,10 +270,19 @@ export function PrivacyPolicy() {
                   Podemos divulgar información si es requerido por ley o para proteger nuestros derechos legales.
                 </p>
               </div>
+
+              <div>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Servicios de Mapas y Geolocalización</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Utilizamos servicios de mapas y geolocalización (como OpenStreetMap y servicios de geocodificación) 
+                  para mostrar ubicaciones y procesar direcciones. Estos servicios pueden procesar datos técnicos como 
+                  la dirección IP o coordenadas aproximadas para su funcionamiento.
+                </p>
+              </div>
             </div>
 
             <p className="text-white/70 text-sm mt-4 leading-relaxed">
-              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden utilizarlos para los fines especificados.render
+              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden utilizarlos para los fines especificados.
             </p>
           </div>
         </section>
