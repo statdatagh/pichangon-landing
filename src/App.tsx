@@ -22,6 +22,7 @@ import { Routes, Route, Link, useNavigate, useLocation } from "react-router-dom"
 import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
 import { PichangaLandingPage } from './pages/PichangaLandingPage';
 import { OpenAppPage } from './pages/OpenAppPage';
+import { TeamLandingPage } from './pages/TeamLandingPage';
 
 export default function App() {
   const location = useLocation();
@@ -91,6 +92,7 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/dashboard" element={<FieldOwnerDashboard />} />
         <Route path="/pichanga/:id" element={<PichangaLandingPage />} />
+        <Route path="/team/:id" element={<TeamLandingPage />} />
         <Route path="/open-app" element={<OpenAppPage />} />
       </Routes>
 
