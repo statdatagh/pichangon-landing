@@ -23,6 +23,7 @@ import FieldOwnerDashboard from './pages/FieldOwnerDashboard';
 import { PichangaLandingPage } from './pages/PichangaLandingPage';
 import { OpenAppPage } from './pages/OpenAppPage';
 import { TeamLandingPage } from './pages/TeamLandingPage';
+import { TournamentLandingPage } from './pages/TournamentLandingPage';
 
 export default function App() {
   const location = useLocation();
@@ -93,6 +94,7 @@ export default function App() {
         <Route path="/dashboard" element={<FieldOwnerDashboard />} />
         <Route path="/pichanga/:id" element={<PichangaLandingPage />} />
         <Route path="/team/:id" element={<TeamLandingPage />} />
+        <Route path="/tournament/:id" element={<TournamentLandingPage />} />
         <Route path="/open-app" element={<OpenAppPage />} />
       </Routes>
 
