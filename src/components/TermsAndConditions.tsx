@@ -32,7 +32,7 @@ export function TermsAndConditions() {
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed mb-4">
-              PICHANGON es actualmente operada por <span className="text-pichangon-accent font-semibold">PICHANGON TECH</span>, 
+              PICHANGON es actualmente operada por <span className="text-pichangon-accent font-semibold">PICHANGON DEL BARRIO</span>, 
               entidad provisional responsable del desarrollo, operación y mantenimiento de la App, 
               mientras la empresa formal se encuentra en proceso de constitución en la República del Perú.
             </p>
