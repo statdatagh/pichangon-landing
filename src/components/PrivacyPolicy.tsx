@@ -8,19 +8,20 @@ export function PrivacyPolicy() {
             Política de Privacidad
           </h1>
           <p className="text-white/60">
-            Última actualización: 27 de noviembre de 2025
+            Última actualización: 03 de junio de 2026
           </p>
         </div>
 
         {/* Intro */}
         <div className="bg-pichangon-dark-card rounded-2xl p-8 mb-8 border border-white/10">
           <p className="text-white/80 leading-relaxed mb-4">
-            En <span className="text-pichangon-accent font-semibold">PICHANGON</span>, respetamos tu privacidad 
-            y estamos comprometidos a proteger tus datos personales. Esta Política de Privacidad explica qué 
-            información recopilamos, cómo la usamos y tus derechos sobre tus datos personales.
+            En <span className="text-pichangon-accent font-semibold">PICHANGON</span>, respetamos tu privacidad
+            y estamos comprometidos a proteger tus datos personales conforme a la Ley N. 29733, Ley de
+            Protección de Datos Personales, y su reglamento aprobado mediante Decreto Supremo N. 016-2024-JUS.
           </p>
           <p className="text-white/80 leading-relaxed">
-            Al usar nuestra aplicación, aceptas las prácticas descritas en esta política.
+            Esta Política explica qué información recopilamos, cómo la usamos y tus derechos sobre tus datos
+            personales. Al usar nuestra aplicación, aceptas las prácticas descritas en esta política.
           </p>
         </div>
 
@@ -33,7 +34,7 @@ export function PrivacyPolicy() {
             <p className="text-white/80 leading-relaxed mb-4">
               Recopilamos la siguiente información cuando usas PICHANGON:
             </p>
-            
+
             <div className="space-y-4">
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Información de Registro</h3>
@@ -51,78 +52,70 @@ export function PrivacyPolicy() {
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Datos de Ubicación</h3>
-
                 <p className="text-white/70 text-sm leading-relaxed mb-2">
-                  PICHANGON puede acceder a la ubicación del dispositivo mediante tecnología GPS, 
-                  únicamente cuando el usuario lo autoriza explícitamente.
+                  PICHANGON puede acceder a la ubicación del dispositivo mediante tecnología GPS,
+                  únicamente cuando el usuario lo autoriza explícitamente. Recopilamos:
                 </p>
-
-                <p className="text-white/70 text-sm leading-relaxed mb-2">
-                  Recopilamos los siguientes datos de ubicación:
-                </p>
-
-                <ul className="space-y-2 ml-4">
-                  <li className="text-white/70 text-sm flex items-start gap-2">
-                    <span className="text-pichangon-accent mt-1">→</span>
-                    <span>Ubicación del dispositivo obtenida mediante GPS (latitud y longitud)</span>
-                  </li>
-                  <li className="text-white/70 text-sm flex items-start gap-2">
-                    <span className="text-pichangon-accent mt-1">→</span>
-                    <span>Ubicaciones ingresadas manualmente (direcciones o distritos)</span>
-                  </li>
+                <ul className="space-y-2 ml-4 mb-2">
+                  {[
+                    "Ubicación del dispositivo obtenida mediante GPS (latitud y longitud)",
+                    "Ubicaciones ingresadas manualmente (direcciones o distritos)",
+                  ].map((item) => (
+                    <li key={item} className="text-white/70 text-sm flex items-start gap-2">
+                      <span className="text-pichangon-accent mt-1">→</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
-
-                <p className="text-white/70 text-sm mt-2 leading-relaxed">
-                  La ubicación se utiliza exclusivamente para mostrar canchas cercanas, calcular distancias 
-                  y mejorar los resultados de búsqueda dentro de la aplicación.
-                </p>
-
-                <p className="text-white/70 text-sm mt-2 leading-relaxed">
-                  No realizamos seguimiento continuo en segundo plano ni almacenamos la ubicación 
-                  exacta del usuario de forma permanente.
-                </p>
-
-                <p className="text-white/70 text-sm mt-2 leading-relaxed">
-                  El acceso a la ubicación es opcional y puede ser desactivado en cualquier momento desde la configuración del dispositivo.
+                <p className="text-white/70 text-sm leading-relaxed">
+                  No realizamos seguimiento continuo en segundo plano ni almacenamos la ubicación exacta
+                  de forma permanente. Los datos de ubicación son eliminados de nuestros servidores en un
+                  plazo máximo de 30 días desde su captura, salvo que su conservación sea necesaria para
+                  resolver una disputa activa. El acceso puede ser desactivado en cualquier momento desde
+                  la configuración del dispositivo.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Fotos y Contenido</h3>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Fotos e Imágenes</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Imágenes de perfil y comprobantes de pago que subas voluntariamente.
+                  Imágenes de perfil, fotos de equipos, imágenes de pichangas y logos de sponsors que
+                  subas voluntariamente. Estas son procesadas y almacenadas mediante Cloudinary.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Comprobantes de Pago</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Imágenes o PDFs de comprobantes de pago que subas voluntariamente como evidencia de
+                  transacciones externas (Yape, Plin, transferencias). Estos archivos son almacenados
+                  mediante Bunny.net. No almacenamos información financiera sensible como números de
+                  tarjeta o cuentas bancarias.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Archivos de Chat</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Imágenes, documentos, audios y videos compartidos en los chats grupales de la App.
+                  Estos archivos son almacenados y distribuidos mediante Bunny.net.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Contenido Generado por el Usuario</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Recopilamos y almacenamos mensajes de chat en grupos, comentarios, evaluaciones de jugadores y 
-                  cualquier otro contenido que publiques en la plataforma. Nos reservamos el derecho de moderar y 
-                  eliminar contenido que viole nuestros Términos de Servicio, incluyendo pero no limitado a lenguaje 
-                  ofensivo, acoso, spam o contenido inapropiado.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Información de Pagos (Procesamiento Externo)</h3>
-                <p className="text-white/70 text-sm leading-relaxed mb-2">
-                  PICHANGON <span className="text-pichangon-accent font-semibold">NO procesa pagos directamente</span>. 
-                  Los pagos entre usuarios y organizadores se realizan externamente mediante métodos como Yape, Plin 
-                  o transferencias bancarias.
-                </p>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  Los organizadores configuran sus propios métodos de cobro en la app, y los participantes suben 
-                  comprobantes de pago como evidencia. Solo almacenamos las imágenes de los comprobantes que los 
-                  usuarios suben voluntariamente y el estado de pago marcado por el organizador (pagado/no pagado). 
-                  No almacenamos información financiera sensible como números de tarjeta o cuentas bancarias.
+                  Mensajes de chat, comentarios, evaluaciones de jugadores y cualquier otro contenido
+                  que publiques en la plataforma. Nos reservamos el derecho de moderar y eliminar
+                  contenido que viole nuestros Términos y Condiciones.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Datos de Uso</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Información sobre cómo interactúas con la app (partidos vistos, grupos unidos, funciones utilizadas).
+                  Información sobre cómo interactúas con la app (partidos vistos, grupos unidos,
+                  funciones utilizadas).
                 </p>
               </div>
 
@@ -145,87 +138,64 @@ export function PrivacyPolicy() {
             <p className="text-white/80 leading-relaxed mb-4">
               Utilizamos tus datos personales para los siguientes propósitos:
             </p>
-            
+
             <div className="space-y-4">
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Funcionalidad de la App</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Gestionar tu cuenta, organizar partidos, enviar notificaciones sobre eventos y permitir la 
-                  comunicación entre jugadores.
+                  Gestionar tu cuenta, organizar partidos, enviar notificaciones sobre eventos y permitir
+                  la comunicación entre jugadores.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Datos de Ubicación</h3>
-
-                <p className="text-white/70 text-sm leading-relaxed mb-2">
-                  Podemos recopilar información de ubicación de las siguientes formas:
-                </p>
-
-                <ul className="space-y-2 ml-4">
-                  <li className="text-white/70 text-sm flex items-start gap-2">
-                    <span className="text-pichangon-accent mt-1">→</span>
-                    <span>Datos ingresados manualmente, como distrito o dirección</span>
-                  </li>
-                  <li className="text-white/70 text-sm flex items-start gap-2">
-                    <span className="text-pichangon-accent mt-1">→</span>
-                    <span>Ubicación del dispositivo obtenida mediante GPS, solo con tu consentimiento</span>
-                  </li>
-                </ul>
-
-                <p className="text-white/70 text-sm mt-2 leading-relaxed">
-                  No compartimos tu ubicación precisa con otros usuarios.
-                </p>
-
-                <p className="text-white/70 text-sm mt-2 leading-relaxed">
-                  Esta información se utiliza para mostrar canchas cercanas, calcular distancias aproximadas 
-                  y optimizar los resultados de búsqueda. No realizamos seguimiento continuo ni utilizamos 
-                  la ubicación con fines publicitarios.
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Geolocalización</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Mostrar canchas cercanas, calcular distancias aproximadas y optimizar los resultados
+                  de búsqueda. No compartimos tu ubicación precisa con otros usuarios ni la utilizamos
+                  con fines publicitarios.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Gestión de Comprobantes de Pago</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Almacenamos las imágenes de comprobantes de pago que subes voluntariamente como evidencia de pago 
-                  externo realizado (Yape, Plin, transferencias). Los organizadores pueden marcar manualmente el 
-                  estado de pago de cada participante. No procesamos transacciones ni almacenamos información 
-                  financiera sensible.
+                  Almacenamos las imágenes o PDFs de comprobantes que subes como evidencia de pagos
+                  externos. Los organizadores pueden marcar manualmente el estado de pago de cada
+                  participante. No procesamos transacciones ni almacenamos información financiera sensible.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Moderación de Contenido</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Revisamos el contenido generado por usuarios (mensajes de chat, comentarios, evaluaciones) para 
-                  garantizar un ambiente seguro y respetuoso. Utilizamos sistemas automatizados y revisión manual para 
-                  detectar y eliminar contenido inapropiado, spam o que viole nuestros Términos de Servicio.
+                  Revisamos el contenido generado por usuarios para garantizar un ambiente seguro y
+                  respetuoso, detectando y eliminando contenido inapropiado o que viole nuestros Términos.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Mejora del Servicio</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Analizar el uso de la app, corregir errores, mejorar el rendimiento y desarrollar nuevas funciones 
-                  basadas en las preferencias y patrones de uso.
+                  Analizar el uso de la app, corregir errores, mejorar el rendimiento y desarrollar
+                  nuevas funciones basadas en preferencias y patrones de uso.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Seguridad y Prevención de Fraude</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Proteger la integridad de la plataforma, prevenir actividades fraudulentas y garantizar el 
-                  cumplimiento de nuestras políticas comunitarias.
+                  Proteger la integridad de la plataforma, prevenir actividades fraudulentas y garantizar
+                  el cumplimiento de nuestras políticas comunitarias.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Comunicación</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Enviarte notificaciones importantes sobre tu cuenta, actualizaciones de partidos, recordatorios y 
-                  comunicaciones relacionadas con el servicio.
+                  Enviarte notificaciones importantes sobre tu cuenta, actualizaciones de partidos,
+                  recordatorios y comunicaciones relacionadas con el servicio.
                 </p>
-
               </div>
             </div>
           </div>
@@ -240,27 +210,43 @@ export function PrivacyPolicy() {
             <p className="text-white/80 leading-relaxed mb-4">
               No vendemos ni compartimos tus datos personales con terceros, excepto en los siguientes casos:
             </p>
-            
+
             <div className="space-y-4">
               <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Proveedores de Servicios</h3>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Firebase (Google)</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Utilizamos servicios de terceros como Firebase (Google) para autenticación, almacenamiento en la 
-                  nube y notificaciones push. Google Analytics se usa para analizar el uso de la app.
+                  Utilizamos Firebase para autenticación de usuarios, almacenamiento en la nube y envío
+                  de notificaciones push (FCM).
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Cloudinary</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Almacenamos imágenes de perfil y comprobantes de pago en servidores de Cloudinary.
+                  Utilizamos Cloudinary para el procesamiento, transformación y almacenamiento de imágenes:
+                  avatares de usuarios, imágenes de equipos y grupos, imágenes de pichangas y logos de
+                  sponsors. Cloudinary puede procesar datos técnicos del archivo como dimensiones, formato
+                  y metadatos para aplicar las transformaciones configuradas.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-pichangon-accent font-semibold mb-2">• Bunny.net</h3>
                 <p className="text-white/70 text-sm leading-relaxed">
-                  Utilizamos Bunny.net para el almacenamiento y distribución de videos dentro de la aplicación mediante una red de distribución de contenido (CDN). Cuando los usuarios acceden a estos videos, ciertos datos técnicos como la dirección IP o información del dispositivo pueden ser procesados por Bunny.net para garantizar la correcta entrega del contenido.
+                  Utilizamos Bunny.net para el almacenamiento y distribución mediante CDN de:
+                  comprobantes de pago (pichangas y torneos), archivos compartidos en chat (imágenes,
+                  documentos, audios) y videos. Cuando accedes a estos archivos, datos técnicos como
+                  la dirección IP o información del dispositivo pueden ser procesados por Bunny.net para
+                  garantizar la correcta entrega del contenido.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-pichangon-accent font-semibold mb-2">• Servicios de Mapas y Geolocalización</h3>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  Utilizamos servicios de mapas y geocodificación (como OpenStreetMap) para mostrar
+                  ubicaciones y procesar direcciones. Estos servicios pueden procesar datos técnicos
+                  como la dirección IP o coordenadas aproximadas para su funcionamiento.
                 </p>
               </div>
 
@@ -270,19 +256,11 @@ export function PrivacyPolicy() {
                   Podemos divulgar información si es requerido por ley o para proteger nuestros derechos legales.
                 </p>
               </div>
-
-              <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Servicios de Mapas y Geolocalización</h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  Utilizamos servicios de mapas y geolocalización (como OpenStreetMap y servicios de geocodificación) 
-                  para mostrar ubicaciones y procesar direcciones. Estos servicios pueden procesar datos técnicos como 
-                  la dirección IP o coordenadas aproximadas para su funcionamiento.
-                </p>
-              </div>
             </div>
 
             <p className="text-white/70 text-sm mt-4 leading-relaxed">
-              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo pueden utilizarlos para los fines especificados.
+              Todos nuestros proveedores están obligados contractualmente a proteger tus datos y solo
+              pueden utilizarlos para los fines especificados.
             </p>
           </div>
         </section>
@@ -294,102 +272,88 @@ export function PrivacyPolicy() {
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed mb-4">
-              Conservamos tus datos personales mientras tu cuenta esté activa y por el tiempo necesario para cumplir 
-              con las finalidades descritas en esta política.
+              Conservamos tus datos personales mientras tu cuenta esté activa. Una vez solicitada la
+              eliminación, aplicamos los siguientes plazos según el tipo de dato:
             </p>
-            
+
             <div className="space-y-3">
-              <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Cuenta Activa</h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  Mientras uses la app, mantendremos tus datos para proporcionarte el servicio.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Después de Eliminar tu Cuenta</h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  Eliminaremos tus datos personales dentro de 30 días, excepto información que debamos conservar por 
-                  razones legales o de seguridad.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-pichangon-accent font-semibold mb-2">• Datos Anonimizados</h3>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  Podemos conservar datos agregados y anonimizados para análisis estadístico indefinidamente.
-                </p>
-              </div>
+              {[
+                { label: "Datos de perfil e historial de actividad:", value: "hasta 60 días calendario desde la solicitud." },
+                { label: "Registros de transacciones y confirmaciones de pago:", value: "hasta 5 años, en cumplimiento de obligaciones tributarias y contables aplicables." },
+                { label: "Datos conservados para prevención de fraude o seguridad:", value: "hasta 12 meses desde la eliminación de la cuenta." },
+                { label: "Datos necesarios para resolver disputas o reportes pendientes:", value: "hasta la resolución del caso, con un máximo de 12 meses." },
+                { label: "Datos de ubicación:", value: "hasta 30 días desde su captura, salvo disputa activa." },
+              ].map((item) => (
+                <div key={item.label} className="flex items-start gap-2">
+                  <span className="text-pichangon-accent mt-1">•</span>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    <span className="font-semibold text-white/80">{item.label}</span> {item.value}
+                  </p>
+                </div>
+              ))}
             </div>
+
+            <p className="text-white/70 text-sm mt-4 leading-relaxed">
+              Vencidos estos plazos, los datos serán eliminados o anonimizados de forma irreversible.
+              Durante el periodo de retención, los datos no serán utilizados para fines comerciales ni
+              compartidos con terceros, salvo requerimiento legal expreso. Podemos conservar datos
+              agregados y anonimizados para análisis estadístico de forma indefinida.
+            </p>
           </div>
         </section>
 
         {/* 5. Derechos del Usuario */}
         <section className="mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">
-            5. Derechos del Usuario
+            5. Derechos del Titular de Datos Personales
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed mb-4">
-              Tienes los siguientes derechos sobre tus datos personales:
+              En cumplimiento de la Ley N. 29733 y el Decreto Supremo N. 016-2024-JUS, tienes los
+              siguientes derechos sobre tus datos personales:
             </p>
-            
+
             <div className="space-y-3">
-              <div className="flex items-start gap-2">
-                <span className="text-pichangon-accent mt-1">✓</span>
-                <div>
-                  <h3 className="text-white font-semibold mb-1">Acceso</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Puedes solicitar una copia de todos los datos personales que tenemos sobre ti.
-                  </p>
+              {[
+                {
+                  label: "Acceso",
+                  value: "Puedes solicitar una copia de todos los datos personales que tenemos sobre ti y conocer con qué finalidad son tratados.",
+                },
+                {
+                  label: "Rectificación",
+                  value: "Puedes actualizar o corregir tu información personal desde la configuración de tu perfil en la app o contactándonos directamente.",
+                },
+                {
+                  label: "Cancelación",
+                  value: "Puedes solicitar la eliminación de tu cuenta y datos personales desde la app o contactándonos. La eliminación está sujeta a los plazos de retención indicados en la sección 4.",
+                },
+                {
+                  label: "Oposición",
+                  value: "Puedes oponerte al tratamiento de tus datos para finalidades específicas cuando exista causa legítima.",
+                },
+              ].map((item) => (
+                <div key={item.label} className="flex items-start gap-2">
+                  <span className="text-pichangon-accent mt-1">✓</span>
+                  <div>
+                    <h3 className="text-white font-semibold mb-1">{item.label}</h3>
+                    <p className="text-white/70 text-sm leading-relaxed">{item.value}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <span className="text-pichangon-accent mt-1">✓</span>
-                <div>
-                  <h3 className="text-white font-semibold mb-1">Corrección</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Puedes actualizar o corregir tu información personal desde la configuración de tu perfil en la app.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <span className="text-pichangon-accent mt-1">✓</span>
-                <div>
-                  <h3 className="text-white font-semibold mb-1">Eliminación</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Puedes solicitar la eliminación completa de tu cuenta y datos personales desde la app o 
-                    contactándonos directamente.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <span className="text-pichangon-accent mt-1">✓</span>
-                <div>
-                  <h3 className="text-white font-semibold mb-1">Portabilidad</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Puedes solicitar tus datos en un formato estructurado y de uso común.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <span className="text-pichangon-accent mt-1">✓</span>
-                <div>
-                  <h3 className="text-white font-semibold mb-1">Oposición</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
-                    Puedes oponerte al procesamiento de tus datos para ciertos fines, como marketing directo.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <p className="text-white/70 text-sm mt-4 leading-relaxed">
-              Para ejercer cualquiera de estos derechos, contáctanos en el correo indicado más abajo.
-            </p>
+            <div className="bg-pichangon-accent/10 border border-pichangon-accent/30 rounded-lg p-4 mt-4">
+              <p className="text-white/80 text-sm leading-relaxed">
+                Para ejercer cualquiera de estos derechos, envía tu solicitud a{" "}
+                <a href="mailto:contacto@pichangon.com" className="text-pichangon-accent font-semibold hover:text-pichangon-accent/80">
+                  contacto@pichangon.com
+                </a>{" "}
+                indicando: nombre completo, correo registrado en la App, derecho que deseas ejercer y
+                descripción de tu solicitud. Responderemos en un plazo máximo de{" "}
+                <span className="font-semibold text-white">20 días hábiles</span> desde la recepción,
+                conforme a la normativa vigente.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -400,10 +364,11 @@ export function PrivacyPolicy() {
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed">
-              Implementamos medidas de seguridad técnicas y organizativas apropiadas para proteger tus datos personales 
-              contra acceso no autorizado, pérdida, destrucción o alteración. Sin embargo, ningún sistema de transmisión 
-              por Internet es 100% seguro, por lo que no podemos garantizar la seguridad absoluta de la información 
-              transmitida a través de nuestra app.
+              Implementamos medidas de seguridad técnicas y organizativas apropiadas para proteger tus
+              datos personales contra acceso no autorizado, pérdida, destrucción o alteración, conforme
+              al principio de seguridad establecido en la Ley N. 29733. Sin embargo, ningún sistema de
+              transmisión por Internet es 100% seguro, por lo que no podemos garantizar la seguridad
+              absoluta de la información transmitida a través de nuestra app.
             </p>
           </div>
         </section>
@@ -415,12 +380,12 @@ export function PrivacyPolicy() {
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed mb-4">
-              PICHANGON está dirigida a usuarios mayores de 13 años. No recopilamos intencionalmente información 
-              personal de menores de 13 años.
+              PICHANGON está dirigida a usuarios mayores de 13 años. No recopilamos intencionalmente
+              información personal de menores de 13 años.
             </p>
             <p className="text-white/70 text-sm leading-relaxed">
-              Si descubrimos que hemos recopilado datos de un menor de 13 años, eliminaremos esa información 
-              inmediatamente.
+              Si descubrimos que hemos recopilado datos de un menor de 13 años, eliminaremos esa
+              información inmediatamente.
             </p>
           </div>
         </section>
@@ -432,12 +397,14 @@ export function PrivacyPolicy() {
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed mb-4">
-              Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos de cualquier cambio 
-              importante publicando la nueva política en la app y actualizando la fecha de "Última actualización" 
-              al inicio de este documento.
+              Podemos actualizar esta Política de Privacidad ocasionalmente. Cuando se realicen cambios
+              sustanciales, te notificaremos con un mínimo de 10 días calendario de anticipación a través
+              de la App o por correo electrónico registrado, y requeriremos tu aceptación expresa antes
+              de que entren en vigor.
             </p>
             <p className="text-white/70 text-sm leading-relaxed">
-              Te recomendamos revisar esta política periódicamente.
+              La fecha de "Última actualización" al inicio de este documento siempre reflejará la versión
+              vigente. Te recomendamos revisarla periódicamente.
             </p>
           </div>
         </section>
@@ -449,25 +416,15 @@ export function PrivacyPolicy() {
           </h2>
           <div className="bg-pichangon-dark-card rounded-xl p-6 border border-white/10">
             <p className="text-white/80 leading-relaxed mb-4">
-              Si tienes preguntas, inquietudes o solicitudes relacionadas con esta Política de Privacidad o el 
-              manejo de tus datos personales, contáctanos:
+              Si tienes preguntas, inquietudes o solicitudes relacionadas con esta Política de Privacidad
+              o el manejo de tus datos personales, contáctanos:
             </p>
-            
+
             <div className="space-y-3">
               <div>
-                <p className="text-white/60 text-sm mb-1">Email de Privacidad:</p>
-                <a 
-                  href="mailto:privacy@pichangon.com" 
-                  className="text-pichangon-accent hover:text-pichangon-accent/80 font-semibold"
-                >
-                  privacy@pichangon.com
-                </a>
-              </div>
-
-              <div>
                 <p className="text-white/60 text-sm mb-1">Contacto General:</p>
-                <a 
-                  href="mailto:contacto@pichangon.com" 
+                <a
+                  href="mailto:contacto@pichangon.com"
                   className="text-pichangon-accent hover:text-pichangon-accent/80 font-semibold"
                 >
                   contacto@pichangon.com
@@ -480,7 +437,7 @@ export function PrivacyPolicy() {
         {/* Footer */}
         <div className="text-center pt-8 border-t border-white/10">
           <p className="text-white/60 text-sm">
-            © 2025 PICHANGON. Todos los derechos reservados.
+            © 2026 PICHANGON. Todos los derechos reservados.
           </p>
         </div>
       </div>
