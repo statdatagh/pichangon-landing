@@ -434,8 +434,8 @@ function HomePage() {
             </button>
           </div>
           <p className="text-white/60 text-xs sm:text-sm px-4 leading-relaxed">
-            © 2025 PICHANGON. Plataforma digital para fútbol amateur en Perú.  
-            <br className="sm:hidden" />
+            © 2025 PICHANGON. Plataforma digital para fútbol amateur en Perú.
+            <br />
             Pichangón es una plataforma operada bajo la marca PICHANGÓN DEL BARRIO.
           </p>
         </div>
